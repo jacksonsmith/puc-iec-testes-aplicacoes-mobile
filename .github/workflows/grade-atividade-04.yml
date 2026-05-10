@@ -79,7 +79,7 @@ jobs:
         with:
           name: grade-${{ steps.discover.outputs.matricula }}
           path: /tmp/grade.json
-          retention-days: 90
+          retention-days: 30
           if-no-files-found: warn
 
       - name: Post PR comment (LGPD-safe — sem nota explícita)
