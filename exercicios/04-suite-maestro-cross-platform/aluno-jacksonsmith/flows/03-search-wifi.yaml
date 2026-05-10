@@ -1,0 +1,8 @@
+appId: com.android.settings
+---
+- launchApp
+- tapOn:
+    id: "search_action_bar"
+    optional: true
+- inputText: "Wi-Fi"
+- assertVisible: "Wi-Fi"
