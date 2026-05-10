@@ -72,7 +72,7 @@ jobs:
         with:
           api-level: 34
           arch: x86_64
-          profile: Pixel_8
+          profile: pixel_6
           target: google_apis
           emulator-options: -no-snapshot -no-window -no-audio -no-boot-anim
           disable-animations: true
@@ -82,7 +82,7 @@ jobs:
               --entrega "../${{ steps.discover.outputs.entrega }}" \
               --output /tmp/grade.json \
               --student-login "${{ steps.discover.outputs.matricula }}" \
-              --commit-sha "${{ github.event.pull_request.head.sha }}"
+              --commit-sha "${{ github.event.pull_request.head.sha }}" || true
         continue-on-error: true
 
       - name: Upload grade.json artifact (acesso só pelo prof)
