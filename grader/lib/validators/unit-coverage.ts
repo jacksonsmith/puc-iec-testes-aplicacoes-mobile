@@ -39,7 +39,7 @@ async function main() {
   });
 
   // Critério 2: arquivos de teste
-  const testFiles = findFiles(args.entrega, ['.test.ts', '.test.tsx', '.test.js', '.spec.ts', '.spec.js']);
+  const testFiles = findFiles(args.entrega, ['.test.ts', '.test.tsx', '.test.js', '.test.jsx', '.spec.ts', '.spec.tsx', '.spec.js', '.spec.jsx']);
   const minTests = 5;
   criteria.push({
     id: 'min-tests',
