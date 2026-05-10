@@ -72,16 +72,57 @@ function flowHasAppId(file: string): boolean {
   }
 }
 
-function runMaestroCheck(file: string): { ok: boolean; output: string } {
+/**
+ * Valida YAML do flow Maestro localmente sem chamar `maestro check`.
+ *
+ * `maestro check` precisa de device conectado (não roda offline em CI).
+ * Aqui validamos:
+ *   - YAML é parseável (sem syntax errors)
+ *   - Pelo menos 2 documents (header + flow steps separados por `---`)
+ *   - Lista de steps tem pelo menos 1 ação
+ *   - Cada step é um objeto/string válido (formato Maestro básico)
+ */
+function parseFlowYaml(file: string): { ok: boolean; output: string } {
   try {
-    // `maestro check <file>` valida sintaxe sem rodar
-    const output = execSync(`maestro check "${file}"`, {
-      encoding: 'utf8',
-      stdio: 'pipe',
-    });
-    return { ok: true, output };
+    const content = readFileSync(file, 'utf8');
+    const docs = content.split(/^---\s*$/m).map((s) => s.trim()).filter(Boolean);
+
+    if (docs.length < 2) {
+      return {
+        ok: false,
+        output: `Flow precisa de header (com appId) + steps separados por '---'. Encontrado ${docs.length} document(s).`,
+      };
+    }
+
+    const header = parseYaml(docs[0]);
+    if (typeof header !== 'object' || header === null) {
+      return { ok: false, output: 'Header YAML inválido' };
+    }
+
+    // Steps são lista de items YAML após o '---'
+    const stepsRaw = parseYaml(docs[1]);
+    if (!Array.isArray(stepsRaw) || stepsRaw.length === 0) {
+      return {
+        ok: false,
+        output: 'Lista de steps vazia ou inválida (deve ser sequência YAML após `---`)',
+      };
+    }
+
+    // Cada step deve ser string ('- launchApp') ou objeto ('- tapOn: ...')
+    for (let i = 0; i < stepsRaw.length; i++) {
+      const step = stepsRaw[i];
+      if (step === null || step === undefined) {
+        return { ok: false, output: `Step ${i} é null/undefined` };
+      }
+      const valid = typeof step === 'string' || typeof step === 'object';
+      if (!valid) {
+        return { ok: false, output: `Step ${i} tem tipo inválido: ${typeof step}` };
+      }
+    }
+
+    return { ok: true, output: `OK — ${stepsRaw.length} step(s) parseáveis` };
   } catch (e: any) {
-    return { ok: false, output: e.stdout?.toString() ?? e.message ?? String(e) };
+    return { ok: false, output: e.message ?? String(e) };
   }
 }
 
@@ -153,11 +194,11 @@ async function main() {
     publicNote: `${flowsWithAppId.length}/${flowsToScore} flows com appId`,
   });
 
-  // Critério 3: parse válido (maestro check)
+  // Critério 3: parse YAML válido (estrutura Maestro básica)
   let parseOkCount = 0;
   const parseDetails: string[] = [];
   for (const f of flowFiles) {
-    const { ok, output } = runMaestroCheck(f);
+    const { ok, output } = parseFlowYaml(f);
     if (ok) {
       parseOkCount++;
     } else {
@@ -167,7 +208,7 @@ async function main() {
   const parseRatio = numFlows > 0 ? parseOkCount / numFlows : 0;
   criteria.push({
     id: 'parse-valido',
-    description: 'Maestro CLI valida sintaxe de todos os flows',
+    description: 'YAML válido + estrutura Maestro (header + steps)',
     weight: 4,
     earned: +(parseRatio * 4).toFixed(2),
     publicNote: `${parseOkCount}/${numFlows} flows com parse válido`,
