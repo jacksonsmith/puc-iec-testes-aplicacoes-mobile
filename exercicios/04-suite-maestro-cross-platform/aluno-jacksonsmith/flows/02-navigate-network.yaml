@@ -1,9 +1,18 @@
-appId: com.android.settings
+appId: com.apptestesmobile
+name: 02-cadastro-usuario
 ---
 - launchApp
 - tapOn:
-    text: "Network & internet"
+    text: "Funcional"
     optional: true
-- assertVisible:
-    text: "Network"
-    enabled: true
+- tapOn:
+    text: "Cadastro de Usuário"
+    optional: true
+- inputText: "João Teste"
+- tapOn:
+    text: "Email"
+    optional: true
+- inputText: "joao@teste.com"
+- tapOn:
+    text: "Cadastrar"
+    optional: true

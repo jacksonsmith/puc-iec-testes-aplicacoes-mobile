@@ -1,30 +1,36 @@
-# Atividade 4 — Suíte Maestro — Aluno: jacksonsmith
+# Atividade 4 — Suíte Maestro — Aluno: jacksonsmith (teste)
 
-> Entrega de teste do prof validando autograder MVP.
+Entrega exemplo do prof — 5 flows Maestro contra **TestesQAMobile** (`com.apptestesmobile`), app de referência oficial da disciplina.
 
 ## App alvo
 
-`com.android.settings` — app pré-instalado em qualquer emulator Android.
+**TestesQAMobile** — instalável via Play Store / App Store. 35 exercícios em 12 categorias. Bundle: `com.apptestesmobile`.
 
 ## Flows entregues
 
-| # | Arquivo | User journey |
-|---|---------|--------------|
-| 01 | `flows/01-launch-settings.yaml` | Lançar Settings |
-| 02 | `flows/02-navigate-network.yaml` | Navegar Network & Internet |
-| 03 | `flows/03-search-wifi.yaml` | Buscar "Wi-Fi" |
-| 04 | `flows/04-display-settings.yaml` | Abrir Display |
-| 05 | `flows/05-about-phone.yaml` | About + Build number |
+| # | Arquivo | Categoria | User journey |
+|---|---------|-----------|--------------|
+| 01 | `01-launch-settings.yaml` | — | Launch + assert tela inicial |
+| 02 | `02-navigate-network.yaml` | Funcional 1.1 | Cadastro de Usuário (form) |
+| 03 | `03-search-wifi.yaml` | Funcional 1.2 | Calculadora (7+3=10) |
+| 04 | `04-display-settings.yaml` | Funcional 1.3 | Todo List (adicionar tarefa) |
+| 05 | `05-about-phone.yaml` | Usabilidade 2.1 | Onboarding (3 telas + começar) |
 
 ## Como executar localmente
 
 ```bash
+# 1. Instalar app no emulator/device via Play Store
+# OU baixar APK de release e instalar via adb
+
+# 2. Subir emulator Android
 emulator -avd Pixel_8_API_34 &
+
+# 3. Rodar flows
 maestro test flows/
 ```
 
 ## Notas
 
-- Settings em emulators reais varia texto exato por API level
-- `optional: true` cobre variações entre versões
-- `scrollUntilVisible` para robustez em telas variáveis
+- `optional: true` em taps cobre variações de label entre versões do app
+- Flow 01 tem assert genérico ("Testes QA") — deve funcionar em qualquer versão
+- Flows 02-05 dependem da estrutura de menu da v1.0+

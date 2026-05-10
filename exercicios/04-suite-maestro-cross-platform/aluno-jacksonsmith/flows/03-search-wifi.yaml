@@ -1,8 +1,25 @@
-appId: com.android.settings
+appId: com.apptestesmobile
+name: 03-calculadora
 ---
 - launchApp
 - tapOn:
-    id: "search_action_bar"
+    text: "Funcional"
     optional: true
-- inputText: "Wi-Fi"
-- assertVisible: "Wi-Fi"
+- tapOn:
+    text: "Calculadora"
+    optional: true
+- tapOn:
+    text: "7"
+    optional: true
+- tapOn:
+    text: "+"
+    optional: true
+- tapOn:
+    text: "3"
+    optional: true
+- tapOn:
+    text: "="
+    optional: true
+- assertVisible:
+    text: "10"
+    optional: true

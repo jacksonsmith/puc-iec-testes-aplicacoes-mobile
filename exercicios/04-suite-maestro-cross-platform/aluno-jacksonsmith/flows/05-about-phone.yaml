@@ -1,11 +1,19 @@
-appId: com.android.settings
+appId: com.apptestesmobile
+name: 05-onboarding
 ---
 - launchApp
-- scrollUntilVisible:
-    element:
-      text: "About"
-    direction: DOWN
 - tapOn:
-    text: "About"
-    enabled: true
-- assertVisible: "Build number"
+    text: "Usabilidade"
+    optional: true
+- tapOn:
+    text: "Onboarding"
+    optional: true
+- tapOn:
+    text: "Próximo"
+    optional: true
+- tapOn:
+    text: "Próximo"
+    optional: true
+- tapOn:
+    text: "Começar"
+    optional: true

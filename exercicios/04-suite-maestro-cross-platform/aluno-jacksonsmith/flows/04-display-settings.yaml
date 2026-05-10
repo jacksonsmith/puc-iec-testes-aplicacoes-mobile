@@ -1,10 +1,17 @@
-appId: com.android.settings
+appId: com.apptestesmobile
+name: 04-todo-list
 ---
 - launchApp
-- scrollUntilVisible:
-    element:
-      text: "Display"
-    direction: DOWN
 - tapOn:
-    text: "Display"
-- assertVisible: "Display"
+    text: "Funcional"
+    optional: true
+- tapOn:
+    text: "Lista de Tarefas"
+    optional: true
+- inputText: "Estudar para a prova"
+- tapOn:
+    text: "Adicionar"
+    optional: true
+- assertVisible:
+    text: "Estudar para a prova"
+    optional: true
