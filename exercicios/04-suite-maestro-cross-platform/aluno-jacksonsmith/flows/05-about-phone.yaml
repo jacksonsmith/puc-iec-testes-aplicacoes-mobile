@@ -1,0 +1,11 @@
+appId: com.android.settings
+---
+- launchApp
+- scrollUntilVisible:
+    element:
+      text: "About"
+    direction: DOWN
+- tapOn:
+    text: "About"
+    enabled: true
+- assertVisible: "Build number"

@@ -1,0 +1,10 @@
+appId: com.android.settings
+---
+- launchApp
+- scrollUntilVisible:
+    element:
+      text: "Display"
+    direction: DOWN
+- tapOn:
+    text: "Display"
+- assertVisible: "Display"

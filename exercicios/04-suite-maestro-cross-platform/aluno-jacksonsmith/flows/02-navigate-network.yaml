@@ -1,0 +1,9 @@
+appId: com.android.settings
+---
+- launchApp
+- tapOn:
+    text: "Network & internet"
+    optional: true
+- assertVisible:
+    text: "Network"
+    enabled: true
