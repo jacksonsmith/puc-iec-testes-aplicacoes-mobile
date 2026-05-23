@@ -1,121 +1,119 @@
-# Atividade 1 — Análise de Cobertura de Testes (15 pts)
+# Atividade 1 — Análise Rápida de Cobertura de Testes (15 pts)
 
 **Disciplina:** Testes de Aplicações Mobile
 **Entrega:** até **27/05/2026** (quarta-feira, antes da Aula 2)
 **Modalidade:** individual
+**Tempo estimado:** 2-3 horas
 
 ---
 
-## Contexto
+## Por que essa atividade
 
-QA mobile falha por falta de **estratégia consciente**. Antes de automatizar, é preciso entender o que existe e o que falta. Nesta atividade, você vai escolher **um** app mobile open source real, descobrir a estratégia de testes dele, identificar gaps e propor melhorias.
+QA mobile falha por falta de estratégia consciente. Você vai escolher um app mobile open source real, descobrir **o que ele testa e o que não testa**, e propor melhoria. Treino básico de auditor.
 
-## Tarefa
+> **Versão simplificada desta oferta** — focada em entregável de 1-2 páginas. Se quiser ir mais fundo, o `template-relatorio.md` tem seções bonus opcionais.
 
-1. **Escolher 1 app** entre os 5 sugeridos abaixo (cada um analisado e validado por mim — você não vai cair em repo abandonado ou sem testes):
+## Tarefa (3 passos)
 
-   | App | Stack | Stars | Repo |
-   |---|---|---|---|
-   | **Immich Mobile** (photo backup) | Flutter (Android+iOS) | 101k ⭐ | <https://github.com/immich-app/immich> (pasta `/mobile`) |
-   | **Bluesky social-app** | React Native + Expo | 18k ⭐ | <https://github.com/bluesky-social/social-app> |
-   | **DuckDuckGo Android** | Kotlin nativo | 4.7k ⭐ | <https://github.com/duckduckgo/Android> |
-   | **Saber** (notes/handwriting) | Flutter (Android+iOS+desktop) | 4.5k ⭐ | <https://github.com/saber-notes/saber> |
-   | **Wikipedia iOS** | Swift nativo | 3.4k ⭐ | <https://github.com/wikimedia/wikipedia-ios> |
+### 1. Escolher 1 app
 
-   > **Pode escolher QUALQUER outro app open-source** (≥100 stars, commits últimos 6 meses) — desde que tenha **testes visíveis** no repo. Mas **fica mais difícil**:
-   > - Pode cair em repo sem testes (= nada pra analisar)
-   > - Pode cair em repo com docs ruins ou desatualizadas (= horas perdidas garimpando)
-   > - Pode escolher app não-mobile sem perceber (web/backend/desktop)
-   > - Tem que validar critérios sozinho (stars, atividade, mobile-only, testes visíveis)
-   >
-   > **Os 3 sugeridos já foram pré-validados por mim** — material rico garantido, vão te economizar tempo. **Recomendo fortemente escolher um dos 3.**
+Escolha 1 dos 5 sugeridos (todos validados — não vai cair em repo abandonado):
 
-2. **Investigar** a estratégia atual seguindo o **`guia-investigacao.md`** (passo a passo de **onde olhar** pra descobrir cada coisa).
-   > **Não fique só no código.** Knott (2014) prega 40% da pirâmide mobile como manual/exploratório. Investigue também: `CONTRIBUTING.md`, beta programs (TestFlight / Firebase App Distribution), bug bounty, issues triadas, reviews da loja, crash reporting. Tudo conta como estratégia de QA.
+| App | Stack | Stars | Repo |
+|---|---|---|---|
+| **Immich Mobile** (photo backup) | Flutter | 101k ⭐ | <https://github.com/immich-app/immich> (pasta `/mobile`) |
+| **Bluesky social-app** | React Native | 18k ⭐ | <https://github.com/bluesky-social/social-app> |
+| **DuckDuckGo Android** | Kotlin | 4.7k ⭐ | <https://github.com/duckduckgo/Android> |
+| **Saber** (notes) | Flutter | 4.5k ⭐ | <https://github.com/saber-notes/saber> |
+| **Wikipedia iOS** | Swift | 3.4k ⭐ | <https://github.com/wikimedia/wikipedia-ios> |
 
-3. **Preencher o `template-relatorio.md`** com suas descobertas + análise crítica.
+> Pode escolher outro app open-source se quiser (≥100 stars, com testes visíveis), mas os 5 acima estão pré-validados. **Recomendo escolher um dos 5.**
 
-4. **Entregar** via GitHub (ver guia "Como entregar atividades pelo GitHub" no Canvas).
+### 2. Descobrir e mapear (~1h)
 
-## Critérios de avaliação
+Abre o repo no GitHub e responde — pode usar **IA assistida (Gemini CLI, Cursor, Claude Code, ChatGPT — opções free vistas na aula 1)** pra acelerar.
 
-| Critério | Pontos |
+| Pergunta | Onde olhar |
 |---|---|
-| App escolhido apropriado + justificativa de escolha | 2 |
-| Mapeamento da estratégia atual (tipos de teste, ferramentas, CI) — completo e correto | 4 |
-| Análise de gaps (o que falta, por que importa, qual risco descoberto) | 4 |
-| Proposta de melhorias com priorização justificada (impacto × esforço) | 3 |
-| ≥3 referências (≥1 acadêmica) pertinentes | 2 |
+| **Que tipos de teste existem?** (unit, UI, E2E, etc.) | Pastas `test/`, `androidTest/`, `*UITests/`, `.maestro/`, `__tests__/` |
+| **Que ferramentas usam?** | `build.gradle`, `package.json`, `pubspec.yaml`, `Project.xcodeproj` |
+| **Tem CI/CD?** | `.github/workflows/*.yml` — quais workflows, rodam em PR ou nightly |
 
-> **Dica:** se ficar perdido em qualquer pergunta do template, abra o `guia-investigacao.md` e veja a seção correspondente. Tudo está documentado lá.
+Veja o **`guia-investigacao.md`** se ficar perdido — passo a passo de onde olhar.
+
+### 3. Análise + proposta (~1h)
+
+- Liste **2 gaps** (o que falta testar) + 1 frase de risco em cada
+- Proponha **1-2 melhorias** com prioridade ("primeiro isso porque...")
+- Cite **2 referências** (qualquer tipo — slide aula, livro, blog técnico, paper)
 
 ## Recomendado (não obrigatório)
 
-**Instale o app** que vai analisar — só pra ter noção do que ele faz como usuário. Você consegue entender melhor riscos e gaps quando conhece o produto.
+**Instale o app** que vai analisar — 5min usando dá contexto pra raciocinar sobre risco e gap real:
 
 | App | Onde baixar |
 |---|---|
 | Immich | iOS: <https://apps.apple.com/app/immich/id1613945652> · Android: <https://play.google.com/store/apps/details?id=app.alextran.immich> |
 | Bluesky | iOS: <https://apps.apple.com/app/bluesky-social/id6444370199> · Android: <https://play.google.com/store/apps/details?id=xyz.blueskyweb.app> |
-| DuckDuckGo Android | <https://play.google.com/store/apps/details?id=com.duckduckgo.mobile.android> |
+| DuckDuckGo | <https://play.google.com/store/apps/details?id=com.duckduckgo.mobile.android> |
 | Saber | iOS: <https://apps.apple.com/app/saber/id1671523739> · Android: <https://play.google.com/store/apps/details?id=com.adilhanney.saber> |
 | Wikipedia iOS | <https://apps.apple.com/app/wikipedia/id324715238> |
 
-> 5min usando o app já dá contexto pra você raciocinar: "esse fluxo de criar conta… deveria ter teste E2E? Tem?".
-
-## Dica: clone o repo e use IA assistida pra acelerar
-
-Em vez de só ler no GitHub via browser, **clone o repo** e abra com sua ferramenta de IA preferida. **A IA acelera muito a análise** — você pergunta e ela varre o repo por você.
+## Dica: use IA pra acelerar
 
 ```bash
-git clone https://github.com/duckduckgo/Android.git    # ou outro dos 4 sugeridos
-cd Android
-# abre com seu IDE / agente IA
+git clone https://github.com/<repo-escolhido>.git
+cd <repo>
+# abre com Cursor / Gemini CLI / Claude Code
 ```
 
-### Ferramentas IA (gratuitas/com tier free, vistas na aula 1)
+Prompts úteis:
 
-| Ferramenta | Como rodar | Free? |
-|---|---|---|
-| **Gemini CLI** (Google) | `gemini` no terminal | ✅ Free (open source) |
-| **Cursor** | abre o repo no Cursor | ✅ Free tier (2000 completions/mês) |
-| **Claude Code** | `claude` no terminal | 💲 ChatGPT-like, Pro $20/mês |
-| **GitHub Copilot** | extensão VS Code | ✅ Free pra estudantes/OSS |
-| **ChatGPT / Gemini / Claude (browser)** | <chat.com>, <gemini.google.com> | ✅ Free tier |
-| **Codex CLI** (OpenAI) | `codex` no terminal | 💲 Plus $20/mês |
+> "Liste todos os tipos de teste neste repo. Mostre paths."
 
-> **Sem orçamento?** Recomendado: **Gemini CLI** (terminal) + **Cursor free** (IDE). Cobrem 90%.
+> "Que dependências de teste estão em [`pubspec.yaml`/`build.gradle`/`package.json`]?"
 
-### Prompts úteis pra essa atividade
+> "Resumo dos workflows em `.github/workflows/`: qual roda em PR, qual nightly."
 
-Cole no agente depois de clonar:
+> "Que 2 gaps de teste posso identificar neste repo?"
 
-> "Liste todos os tipos de teste presentes neste repo (unit, UI, E2E, snapshot, performance, accessibility, security). Mostre paths e ferramentas usadas."
+> ⚠️ **IA é ajudante, não substituto.** Valide o que ela diz abrindo o arquivo no GitHub.
 
-> "Resumo dos workflows em `.github/workflows/`: qual roda em PR, qual roda nightly, quais testam o quê."
+## Critérios de avaliação
 
-> "Que dependências de teste estão em `app/build.gradle` (Android) ou `package.json` (RN)? Agrupe por categoria: unit, mock, UI, perf."
+| Critério | Pontos |
+|---|---|
+| App escolhido apropriado + justificativa curta | 2 |
+| Mapeamento (tipos de teste + ferramentas + CI) — direto ao ponto | 6 |
+| 2 gaps identificados com risco | 4 |
+| 1-2 melhorias propostas com justificativa | 2 |
+| 2 referências citadas | 1 |
 
-> "Identifique 3-5 gaps de teste neste repo (o que NÃO está sendo testado). Justifique cada gap com risco real."
+**Total: 15 pts**
 
-> **Atenção:** IA é ajudante, não substituto. **Valide o que ela disser** abrindo o arquivo no GitHub. Aluno que cola texto de IA sem revisar perde nota — gaps inventados ou ferramentas erradas ficam óbvios na correção.
-
-## O que você NÃO precisa fazer
-
-- **Não precisa rodar os testes** (só ler o código deles)
-- Não precisa compilar o repo localmente
-- Não precisa ler todo o código-fonte
-- **Você é um auditor** olhando o repo do GitHub + usando o app brevemente, tirando conclusões a partir do que está visível
+> Bonus (não conta pra nota máxima, mas considerado em edge cases de arredondamento):
+> - Matriz impacto × esforço pras melhorias
+> - Análise de testes além do código (CONTRIBUTING.md, beta, bug bounty, crash reporting)
+> - 3+ referências, sendo 1 acadêmica
 
 ## Entrega
 
 - Formato: **markdown** (`.md`) ou PDF gerado de markdown
-- Tamanho: 3-5 páginas
+- Tamanho: **1-2 páginas** (não precisa ser longo — direto ao ponto)
 - Estrutura: copiar `template-relatorio.md` e preencher
 - Submeter via Canvas (módulo Atividade 1) com link do commit GitHub
+- **Como entregar via GitHub:** ver página "Como entregar atividades pelo GitHub" no módulo Início
+
+## O que você NÃO precisa fazer
+
+- **Não precisa rodar testes** (só ler código)
+- Não precisa compilar app localmente
+- Não precisa ler todo código-fonte
+- **Você é um auditor** — investigar a partir do que está visível
+- Não precisa matriz quantitativa, paper acadêmico, ou análise exaustiva (deixar pra próximas atividades)
 
 ## Material de apoio
 
-- `guia-investigacao.md` — **leia primeiro!** Como descobrir cada coisa
+- `guia-investigacao.md` — passo a passo de **onde olhar** pra descobrir cada coisa
 - `template-relatorio.md` — preencha esse, é sua entrega
-- Material de apoio aula 1 (Fowler, Knott, Linares-Vásquez, Google Testing, ISTQB) — use como referência teórica
+- Material de apoio aula 1 (Fowler, Knott — disponíveis na página *Leitura Obrigatória* do módulo)

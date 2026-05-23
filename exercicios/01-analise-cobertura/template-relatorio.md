@@ -1,139 +1,91 @@
 # Atividade 1 — Análise de Cobertura — [Seu Nome]
 
-> **Como usar:** copia este arquivo, renomeia pra `<seu-nome>-analise.md`, preenche os campos `[...]` com suas descobertas. Apaga este aviso no fim.
+> **Como usar:** copia este arquivo, renomeia pra `<seu-nome>-analise.md`, preenche os `[...]`. Apaga este aviso no fim.
+> **Tamanho alvo:** 1-2 páginas. Direto ao ponto.
 
 ---
 
 ## 0. Identificação
 
 - **Aluno:** [seu nome completo]
-- **Data:** [DD/MM/2026]
-- **App escolhido:** [DuckDuckGo Android / Wikipedia iOS / Bluesky social-app / outro]
-- **Repo:** [URL do GitHub]
-- **Stack:** [Kotlin nativo / Swift nativo / React Native / Flutter]
-
-### Justificativa da escolha
-[Por que escolheu esse app? 1-3 frases. Ex: "Escolhi Wikipedia iOS porque uso o app pessoalmente, é maduro (mais de 10 anos de história) e tem documentação clara de Test Plans."]
+- **App escolhido:** [Immich Mobile / Bluesky / DuckDuckGo Android / Saber / Wikipedia iOS]
+- **Repo:** [URL]
+- **Justificativa de escolha (1 frase):** [Por quê?]
 
 ---
 
-## 1. Estratégia de testes atual
+## 1. Estratégia atual
 
-### 1.1 Tipos de teste presentes
+### 1.1 Tipos de teste + ferramentas
 
-| Tipo | Existe? | Onde fica | Quantidade aproximada |
+| Tipo | Existe? | Ferramenta | Onde fica |
 |---|---|---|---|
-| Unit tests | [Sim/Não] | [path] | [~ N arquivos] |
-| Integration / Instrumented | [Sim/Não] | [path] | [~ N] |
-| UI tests nativos (Espresso/XCUITest/Detox) | [Sim/Não] | [path] | [~ N] |
-| E2E cross-platform (Maestro/Appium) | [Sim/Não] | [path] | [~ N flows] |
-| Snapshot / Visual regression | [Sim/Não] | [path] | [~ N] |
-| Performance / Benchmark | [Sim/Não] | [path] | [observações] |
-| Accessibility | [Sim/Não] | [path ou —] | — |
-| Security / SAST | [Sim/Não] | [path ou —] | — |
+| Unit | [Sim/Não] | [JUnit / XCTest / Jest / flutter_test] | [path] |
+| UI nativo | [Sim/Não] | [Espresso / XCUITest / —] | [path ou —] |
+| E2E cross-platform | [Sim/Não] | [Maestro / Detox / —] | [path ou —] |
+| Outros (snapshot, perf, a11y) | [Sim/Não] | [especificar] | [path ou —] |
 
-### 1.2 Ferramentas detectadas
+### 1.2 CI / CD
 
-- **Unit:** [JUnit 4, MockK, Robolectric, Turbine, Mockito, XCTest, Jest, etc.]
-- **UI nativo:** [Espresso, UI Automator, XCUITest, Detox, etc.]
-- **E2E:** [Maestro, Appium, etc.]
-- **Outras:** [SwiftLint, ktlint, jest-junit, flashlight, etc.]
-
-### 1.3 CI / CD
-
-| Workflow | Evento | O que faz | Plataforma |
-|---|---|---|---|
-| [nome.yml] | [push / PR / nightly] | [build / unit / E2E / lint] | [Android / iOS / Web] |
-| [nome.yml] | [...] | [...] | [...] |
-
-**Observações:**
-- [Roda em PR? Em nightly? Tem matrix de OS/API level?]
-- [E2E está bloqueante de PR ou só manual/nightly?]
-
-### 1.4 Cobertura declarada
-
-- [ ] Badge no README
-- [ ] Workflow gera relatório de cobertura
-- [ ] Não há cobertura medida
-
-**Detalhe:** [Ex: "Script `test:coverage` existe no `package.json` mas não é invocado em nenhum workflow — cobertura só local."]
-
-### 1.5 Testes ALÉM do código (manual, beta, comunidade)
-
-> Knott (2014): 40% da pirâmide mobile é exploratório/manual. Olhar só CI perde essa metade.
-
-| Aspecto | Existe evidência? | Onde / Detalhe |
+| Workflow | Quando roda | O que testa |
 |---|---|---|
-| `CONTRIBUTING.md` descreve processo de teste | [Sim/Não] | [path / quote] |
-| Beta program (TestFlight / Firebase / Play Internal) | [Sim/Não] | [link ou —] |
-| Bug bounty / `SECURITY.md` | [Sim/Não] | [link ou —] |
-| Issues bem triadas (labels QA, response time) | [Sim/Não] | [observação qualitativa] |
-| Cloud device farm (Firebase Test Lab / BrowserStack / etc.) | [Sim/Não] | [path workflow ou README] |
-| Crash reporting / telemetria | [Sim/Não] | [Sentry / Crashlytics / outro] |
-| Reviews recente Play/App Store | [Resumo qualitativo] | [crashes? lentidão? UX feedback?] |
+| [arquivo.yml] | [PR / push / nightly] | [unit / E2E / lint] |
+| [arquivo.yml] | [...] | [...] |
 
-**Resumo:** [1-3 frases sobre maturidade da estratégia além-do-código. Ex: "Estratégia automatizada robusta mas sem evidência de teste manual estruturado ou beta program."]
+**Observação geral (1-2 frases):** [Roda em PR? Tem matrix Android/iOS? E2E bloqueia merge?]
+
+### 1.3 Cobertura
+- [ ] Badge no README → [link ou —]
+- [ ] Workflow gera coverage → [path]
+- [ ] Não há cobertura pública
 
 ---
 
-## 2. Análise de gaps
-
-> Liste 3-5 gaps reais. Pra cada um: **o que falta**, **por que importa** (risco), **fundamento** (qual heurística/paper sustenta).
+## 2. Gaps (2)
 
 ### Gap 1: [Título curto]
-
-- **O que falta:** [descrição]
-- **Risco:** [o que pode dar errado em produção sem isso]
-- **Fundamento:** [referência — Knott 2014, Linares-Vásquez 2017, etc.]
+- **O que falta:** [1 frase]
+- **Risco:** [o que pode dar errado em produção sem isso — 1 frase]
 
 ### Gap 2: [Título]
-[...]
-
-### Gap 3: [Título]
-[...]
+- **O que falta:** [...]
+- **Risco:** [...]
 
 ---
 
-## 3. Proposta de melhorias (Top 3)
+## 3. Melhorias propostas (1-2)
 
-### Matriz impacto × esforço
+### Melhoria 1: [Título]
+- **O que implementar:** [bullet point ou 1-2 frases]
+- **Por que primeiro:** [justificativa — impacto, custo, urgência]
 
-| Gap / Melhoria | Impacto (1-5) | Esforço (1-5) | Score (I/E) | Prioridade |
-|---|---|---|---|---|
-| [Melhoria 1] | [N] | [N] | [N] | 🥇 / 🥈 / 🥉 |
-| [Melhoria 2] | [N] | [N] | [N] | [...] |
-| [Melhoria 3] | [N] | [N] | [N] | [...] |
-
-### Detalhamento das Top 3
-
-#### 🥇 [Melhoria 1]
-
-- **O que implementar:** [ex: adicionar accessibility checks no Espresso via `AccessibilityChecks.enable()`]
-- **Como:** [bullet points concretos]
-- **Esforço estimado:** [horas/dias]
-- **Justificativa do impacto:** [por que essa primeiro? cite dado]
-
-#### 🥈 [Melhoria 2]
-[...]
-
-#### 🥉 [Melhoria 3]
-[...]
+### Melhoria 2 (opcional): [Título]
+- [...]
 
 ---
 
 ## 4. Referências
 
-### Acadêmicas (≥1 obrigatória)
-
-1. [LINARES-VÁSQUEZ, M. et al. (2017). *Continuous, Evolutionary and Large-Scale: A New Perspective for Automated Mobile App Testing*. ICSME 2017.]
-
-### Industry / Padrões
-
-2. [FOWLER, M. (2018). *The Practical Test Pyramid*. martinfowler.com.]
-3. [KNOTT, D. (2014). *The Mobile Test Pyramid*. Ministry of Testing.]
+1. [Referência 1 — pode ser slide aula, livro, paper, blog técnico]
+2. [Referência 2]
 
 ---
 
-## 5. Observações finais (opcional)
+## 🎁 Bonus (opcional, não afeta nota base)
 
-[Algo que aprendeu fazendo a atividade? Pergunta que ficou em aberto? Insight que não cabe nas seções acima?]
+> Preencha só se quiser ir além. Considerado em arredondamentos.
+
+### Bonus A — Matriz impacto × esforço
+| Melhoria | Impacto (1-5) | Esforço (1-5) | Score (I/E) |
+|---|---|---|---|
+| [...] | [N] | [N] | [N] |
+
+### Bonus B — Testes além do código
+- CONTRIBUTING.md descreve QA? [Sim/Não — quote]
+- SECURITY.md / bug bounty? [Sim/Não — link]
+- Beta program ativo? [TestFlight / Firebase / —]
+- Crash reporting? [Sentry / Crashlytics / —]
+- Resumo qualitativo (1 frase): [...]
+
+### Bonus C — Referência acadêmica
+- [Paper peer-reviewed citado — ex: Linares-Vásquez et al. (2017) ICSME]

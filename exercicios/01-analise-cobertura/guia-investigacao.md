@@ -2,6 +2,8 @@
 
 > Manual de auditor de QA mobile. Você abre o repo no GitHub e segue os passos abaixo. Cada pergunta do template tem **onde olhar** e **o que procurar**.
 
+> ⚠️ **Para esta oferta (versão simplificada):** foque nas **seções 1-3** (tipos de teste, ferramentas, CI). Seções 4-8 são úteis e cobrem material de bonus do template. **Não precisa fazer tudo.**
+
 ---
 
 ## 1. Que tipos de teste existem?
