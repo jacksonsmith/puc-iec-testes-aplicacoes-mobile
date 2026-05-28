@@ -1,9 +1,8 @@
 name: Suite Unitaria (Atividade 2 - Testes Mobile)
 
 on:
-  push:
-    branches: [main]
-  pull_request:
+  push:          # qualquer branch (inclui entrega/atividade-2-...)
+  pull_request:  # valida ao abrir PR
 
 jobs:
   test:
