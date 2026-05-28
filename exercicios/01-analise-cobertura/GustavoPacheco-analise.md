@@ -1,4 +1,4 @@
-# Atividade 1 — Análise de Cobertura — [Seu Nome]
+# Atividade 1 — Análise de Cobertura — [Gustavo Pacheco]
 
 ---
 
