@@ -4,4 +4,7 @@
 ```bash
 npm install
 npm test
+npm run test:coverage
 ```
+
+Aluno: CI Fix Test v2
