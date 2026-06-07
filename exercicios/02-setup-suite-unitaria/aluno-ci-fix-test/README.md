@@ -7,4 +7,4 @@ npm test
 npm run test:coverage
 ```
 
-Aluno: CI Fix Test v2
+Aluno: CI Fix Test v3 (retrigger apos yaml fix)
