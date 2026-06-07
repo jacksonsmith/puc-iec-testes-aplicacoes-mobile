@@ -21,7 +21,7 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 22 }
       - working-directory: ./grader
-        run: npm ci || npm install
+        run: npm install
 
       - id: discover
         run: |
@@ -62,9 +62,15 @@ jobs:
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: `## 🤖 J.A.R.V.I.S. — *autograder do Prof. Jackson*\n\n` +
-                  `> *Just A Rather Very Intelligent System* — bot que executa as regras de avaliação automatizada do prof nos PRs de exercício.\n\n` +
-                  `**Atividade 3 (Native UI)**\n\n` +
+                body: `## 🤖 J.A.R.V.I.S. — *autograder do Prof. Jackson*
+
+` +
+                  `> *Just A Rather Very Intelligent System* — bot que executa as regras de avaliação automatizada do prof nos PRs de exercício.
+
+` +
+                  `**Atividade 3 (Native UI)**
+
+` +
                   `❌ Não consegui avaliar sua entrega. Verifique o path: \`exercicios/03-suite-native-ui/aluno-<seu-github-username>/\``,
               });
               return;
@@ -90,7 +96,8 @@ jobs:
               ``,
               `_Pontuação final no Canvas._`,
               `_Dúvidas? **Teams da turma** ou jackson.96@gmail.com._`,
-            ].join('\n');
+            ].join('
+');
             await github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
