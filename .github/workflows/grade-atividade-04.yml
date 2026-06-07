@@ -95,19 +95,11 @@ jobs:
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: `## 🤖 J.A.R.V.I.S. — *autograder do Prof. Jackson*
-
-` +
-                  `> *Just A Rather Very Intelligent System* — bot que executa as regras de avaliação automatizada do prof nos PRs de exercício.
-
-` +
-                  `**Atividade 4 (Maestro Suite)**
-
-` +
-                  `❌ **Não consegui avaliar sua entrega.** Verifique:
-` +
-                  `- Path: \`exercicios/04-suite-maestro-cross-platform/aluno-<seu-github-username>/\`
-` +
+                body: `## 🤖 J.A.R.V.I.S. — *autograder do Prof. Jackson*\n\n` +
+                  `> *Just A Rather Very Intelligent System* — bot que executa as regras de avaliação automatizada do prof nos PRs de exercício.\n\n` +
+                  `**Atividade 4 (Maestro Suite)**\n\n` +
+                  `❌ **Não consegui avaliar sua entrega.** Verifique:\n` +
+                  `- Path: \`exercicios/04-suite-maestro-cross-platform/aluno-<seu-github-username>/\`\n` +
                   `- Estrutura: \`<entrega>/flows/*.yaml\` + \`<entrega>/README.md\``,
               });
               return;
@@ -135,8 +127,7 @@ jobs:
               ``,
               `_Pontuação final no Canvas._`,
               `_Dúvidas? **Teams da turma** ou jackson.96@gmail.com._`,
-            ].join('
-');
+            ].join('\n');
             await github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
