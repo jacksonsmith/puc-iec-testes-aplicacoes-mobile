@@ -1,100 +1,63 @@
-# README — Atividade 2 Setup + Suíte Unitária — [Seu Nome]
+# README — Atividade 2 Suíte Unitária RN — [Seu Nome]
 
-> Use isso como base do README.md do seu projeto.
+> Use isso como base do README do seu fork (`exercicios/02-setup-suite-unitaria/starter/README-entrega.md` ou no PR).
 
 ## Identificação
 
 - **Aluno:** [seu nome]
-- **Plataforma:** [iOS / Android]
-- **Versão IDE:** [Xcode 16.2 / Android Studio Iguana 2024.1]
-- **Versão SDK:** [iOS 18 / API 34]
+- **Node:** [v22.x]
 - **Repo (seu fork):** [URL]
+- **Commit/PR de entrega:** [URL]
 
-## Setup verificado
+## Como rodar
 
 ```bash
-# iOS
-xcodebuild -version
-xcrun simctl list devices | grep "iPhone 16"
-
-# Android
-./gradlew --version
-emulator -list-avds
+cd exercicios/02-setup-suite-unitaria/starter
+npm install
+npm test
+npm run test:coverage
 ```
 
-## Como rodar os testes
-
-### iOS
-```bash
-xcodebuild test \
-  -scheme MeuApp \
-  -destination 'platform=iOS Simulator,name=iPhone 16'
-```
-
-### Android
-```bash
-./gradlew testDebugUnitTest
-```
-
-## Estrutura do projeto
+## Resultado da suíte
 
 ```
-MeuApp/
-├── MeuApp/
-│   └── Utilities.swift       ← (iOS) suas 5 funções
-├── MeuAppTests/
-│   └── UtilitiesTests.swift  ← seus 5 testes
-└── MeuApp.xcodeproj
+[cole a saída do npm test — ex: Tests: 14 passed, 14 total]
 ```
 
-OU (Android):
+## Cobertura
 
-```
-app/
-├── src/main/java/com/example/meuapp/
-│   └── Utilities.kt
-└── src/test/java/com/example/meuapp/
-    └── UtilitiesTest.kt
-```
+| Pasta | % Stmts | % Branch |
+|---|---|---|
+| `src/store` | [ex: 100] | [ex: 100] |
+| `src/utils` | [ex: 100] | [ex: 100] |
 
-## Funções implementadas
+![Cobertura](./coverage-screenshot.png)
 
-| Função | O que faz |
-|---|---|
-| `isValidEmail` | Valida formato e-mail (regex simples) |
-| `daysBetween` | Calcula dias entre 2 datas |
-| `formatCurrencyBRL` | Formata Decimal/Double como "R$ 1.234,56" |
-| `capitalizeWords` | "hello world" → "Hello World" |
-| `average` | Média de array de doubles |
+## Testes escritos
 
-## Casos de teste
+| Arquivo | Casos | O que cobre |
+|---|---|---|
+| `favoritesStore.test.ts` | 6 | add / add-sem-duplicar / remove / toggle / isFavorite / clear |
+| `MovieCard.test.tsx` | 2+ | render título/nota · toque navega (RNTL) |
+| `api.test.ts` | 5 | isTokenError: 401, flag, missing, null, 500 |
+| `counterStore.test.ts` | 3 | increment / decrement / reset |
 
-| ID | Função | Tipo | Esperado |
-|---|---|---|---|
-| T01 | isValidEmail | Happy | `"a@b.c"` → true |
-| T02 | isValidEmail | Edge | `""` → false |
-| T03 | daysBetween | Happy | mesmo dia → 0 |
-| T04 | formatCurrencyBRL | Happy | `1000` → `"R$ 1.000,00"` |
-| T05 | average | Edge | `[]` → 0 |
+## Decisões de teste
 
-## Screenshot
-
-![Testes verdes 5/5](./screenshot-tests.png)
-
-> Substitua imagem pelo print real do test runner.
+- Como resetei o estado da store entre testes? [beforeEach + setState]
+- Algum caso que você quase esqueceu? [ex: toggle nos 2 caminhos]
+- Usou IA? O que precisou corrigir no que ela gerou? [seja honesto]
 
 ## Referência
 
-[1 referência — XCTest docs, JUnit 5 docs, slide aula 2, Fowler Practical Pyramid]
+[1 referência — Jest docs / Khorikov Unit Testing / Meszaros / slide aula 2]
 
 ---
 
-## 🎁 Bonus implementado (opcional)
+## 🎁 Bônus implementado (opcional)
 
-- [ ] 2 plataformas (iOS + Android)
-- [ ] Coverage ≥70% — [Xcode coverage / JaCoCo report]
-- [ ] Mock com MockK / OCMock em 1 teste
-- [ ] CI GitHub Actions verde
-- [ ] Testes parametrizados (`@ParameterizedTest` / `XCTContext.runActivity`)
+- [ ] `popularMovies.test.ts` — mock de `@/services/api` com `jest.mock`
+- [ ] CI GitHub Actions verde no fork
+- [ ] Testes parametrizados (`it.each`)
 
 [Cole prints / paths relevantes]

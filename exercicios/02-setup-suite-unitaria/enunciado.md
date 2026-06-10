@@ -1,4 +1,4 @@
-# Atividade 2 — Setup + Suíte Unitária Mínima (10 pts)
+# Atividade 2 — Suíte Unitária sobre App RN (10 pts)
 
 **Disciplina:** Testes de Aplicações Mobile
 **Entrega:** até **11/06/2026** (2 semanas)
@@ -9,107 +9,71 @@
 
 ## Por que essa atividade
 
-Aula 2 cobriu **setup completo de ambiente mobile** (Xcode/Android Studio) + **testes unitários** (XCTest/JUnit/Jest+RNTL). Esta atividade exercita o mínimo viável: ter ambiente funcional + suíte unitária verde.
+Aula 2 cobriu **unit testing em React Native** (Jest + funções puras + `jest.mock`). Aqui você exercita o core do QA: **escrever uma suíte de testes verde sobre código que já existe** — sem precisar implementar features.
 
-## Tarefa (3 passos em ~1-2h)
+O app-alvo é o **mesmo app TMDB da disciplina de Arquitetura** (já implementado nesta versão). Você testa as camadas `store`, `utils` e `data`.
 
-### 1. Escolher 1 plataforma + fazer setup (~30min)
+---
 
-Escolha **1** (não precisa ambas — bonus se fizer):
+## Pré-requisito (setup ~10min)
 
-| Plataforma | Setup mínimo |
-|---|---|
-| **iOS** | Xcode 16+ instalado + 1 simulator funcional (ex: iPhone 16) |
-| **Android** | Android Studio + JDK 17 + 1 AVD funcional (ex: Pixel 8 API 34) |
-
-Confirma com `xcrun simctl list devices` (iOS) ou `emulator -list-avds` (Android).
-
-### 2. Criar projeto + 5 funções utilitárias (~20min)
-
-**iOS:** Xcode → New Project → **App** (Swift, iOS). Adicionar arquivo `Utilities.swift` com 5 funções:
-
-```swift
-import Foundation
-
-enum Utilities {
-    static func isValidEmail(_ s: String) -> Bool { /* implementação */ }
-    static func daysBetween(_ start: Date, _ end: Date) -> Int { /* ... */ }
-    static func formatCurrencyBRL(_ value: Decimal) -> String { /* ... */ }
-    static func capitalizeWords(_ s: String) -> String { /* ... */ }
-    static func average(_ numbers: [Double]) -> Double { /* ... */ }
-}
+```bash
+# 1. Fork do repo público no GitHub
+# 2. Clone o SEU fork
+git clone https://github.com/SEU-USUARIO/puc-iec-testes-aplicacoes-mobile.git
+cd puc-iec-testes-aplicacoes-mobile/exercicios/02-setup-suite-unitaria/starter
+npm install
+npm test     # posterUrl já passa verde (3 testes). O resto é seu.
 ```
 
-**Android:** Android Studio → New Project → **Empty Activity** (Kotlin). Adicionar arquivo `Utilities.kt` em `app/src/main/java/<package>/`:
+> **Não precisa simulador, token TMDB nem rede.** Unit test roda só com Node.
 
-```kotlin
-object Utilities {
-    fun isValidEmail(s: String): Boolean { /* ... */ }
-    fun daysBetween(start: Long, end: Long): Long { /* ... */ }
-    fun formatCurrencyBRL(value: Double): String { /* ... */ }
-    fun capitalizeWords(s: String): String { /* ... */ }
-    fun average(numbers: List<Double>): Double { /* ... */ }
-}
+---
+
+## Tarefa (escrever testes em `__tests__/`)
+
+O starter já tem **1 exemplo resolvido** (`posterUrl.test.ts`) — use de modelo. Os outros arquivos têm `it.todo` marcando o que falta.
+
+### 1. `favoritesStore.test.ts` — Zustand (6 testes)
+
+Store em `src/store/favoritesStore.ts`. Cubra:
+- `add(id)` adiciona o id
+- `add(id)` **não duplica** id já existente
+- `remove(id)` tira o id
+- `toggle(id)` adiciona se ausente, remove se presente (2 caminhos)
+- `isFavorite(id)` reflete o estado
+- `clear()` esvazia
+
+> Store é singleton — resete entre testes com `useFavoritesStore.setState({ ids: [] })` no `beforeEach` (já está no scaffold). Acesse com `useFavoritesStore.getState()`.
+
+### 2. `MovieCard.test.tsx` — teste de tela (RNTL) ⭐
+
+Componente em `src/components/MovieCard.tsx`. É o teste mais "cara de QA" — valida o que o usuário **vê** e **faz**:
+- renderiza o **título** do filme (`screen.getByText`)
+- renderiza a **nota** (`⭐ 8.7`)
+- **toque no card navega** pro detalhe (`fireEvent.press` → `navigate` chamado)
+
+> MovieCard usa `useNavigation()` — mocke o hook (não há `NavigationContainer` no teste). O scaffold já traz o mock pronto.
+
+### 3. `counterStore.test.ts` — Zustand (3 testes)
+
+`increment` soma 1 · `decrement` subtrai 1 · `reset` zera.
+
+### 4. `api.test.ts` — função pura da camada data (5 testes)
+
+`isTokenError(err)` em `src/services/api.ts`:
+- `true` pra `response.status === 401`
+- `true` pra `{ isTokenError: true }`
+- `true` pra erro `TMDB_TOKEN_MISSING`
+- `false` pra `null`
+- `false` pra erro genérico (status 500)
+
+### 5. Cobertura ≥ 70% em `src/store` e `src/utils`
+
+```bash
+npm run test:coverage
+# abre coverage/lcov-report/index.html
 ```
-
-> Implementar cada função é trivial — foco da atividade é **testar**, não fazer função complexa.
-
-### 3. Escrever 5 testes unitários (~40min)
-
-Pra cada função, mínimo **1 happy path + 1 edge case**. Mas pode ser só **5 testes no total** (não precisa 2 por função).
-
-**iOS — XCTest:**
-
-```swift
-import XCTest
-@testable import MeuApp
-
-final class UtilitiesTests: XCTestCase {
-    func test_isValidEmail_happyPath() {
-        XCTAssertTrue(Utilities.isValidEmail("aluno@puc.br"))
-    }
-    
-    func test_isValidEmail_emptyString_returnsFalse() {
-        XCTAssertFalse(Utilities.isValidEmail(""))
-    }
-    
-    func test_daysBetween_sameDay_returnsZero() { /* ... */ }
-    func test_formatCurrencyBRL_oneThousand_returnsCorrectFormat() { /* ... */ }
-    func test_average_emptyArray_returnsZero() { /* ... */ }
-}
-```
-
-**Android — JUnit:**
-
-```kotlin
-import org.junit.Test
-import org.junit.Assert.*
-
-class UtilitiesTest {
-    @Test
-    fun isValidEmail_happyPath() {
-        assertTrue(Utilities.isValidEmail("aluno@puc.br"))
-    }
-    
-    @Test
-    fun isValidEmail_emptyString_returnsFalse() {
-        assertFalse(Utilities.isValidEmail(""))
-    }
-    
-    // ... mais 3 testes
-}
-```
-
-Rodar testes (`Cmd+U` no Xcode ou Run em Android Studio). **Todos têm que passar (verde).**
-
-### 4. README + screenshot + entrega (~10min)
-
-`README.md` com:
-- Nome da atividade + seu nome
-- Plataforma escolhida (iOS ou Android) + versões (Xcode 16.2 / Android Studio Iguana)
-- Comando pra rodar testes (`xcodebuild test -scheme MeuApp -destination 'platform=iOS Simulator,name=iPhone 16'` OU `./gradlew testDebugUnitTest`)
-- Screenshot de testes verdes (5/5 passing)
-- 1 referência
 
 ---
 
@@ -117,33 +81,27 @@ Rodar testes (`Cmd+U` no Xcode ou Run em Android Studio). **Todos têm que passa
 
 | Critério | Pontos |
 |---|---|
-| Setup funcional (testes rodam em máquina limpa via README) | 3 |
-| 5 funções implementadas | 2 |
-| 5 testes verdes (rodando + passando) | 4 |
-| README + screenshot | 1 |
+| `npm install && npm test` roda em < 15min (eliminatório) | 2 |
+| Testes `favoritesStore` (6 verdes) | 2 |
+| **Teste de tela `MovieCard` (RNTL)** — render + press navega | 2 |
+| Testes `isTokenError` (5 verdes) | 2 |
+| Testes `counterStore` (3 verdes) | 1 |
+| Cobertura ≥ 70% em `src/store` e `src/utils` | 1 |
 
 **Total: 10 pts**
 
-> 🎁 **Bonus** (não conta pra máxima, considerado em arredondamento):
-> - Setup nas 2 plataformas (iOS + Android) com 2 suítes
-> - Coverage ≥70% (Xcode coverage ou JaCoCo) com print
-> - Mock com MockK (Android) ou test double XCTest (iOS) em pelo menos 1 teste
-> - GitHub Actions com workflow `tests.yml` rodando + verde no PR
-> - Testes parametrizados (`@ParameterizedTest` JUnit5 ou XCTContext em XCTest)
+> 🎁 **Bônus** (arredondamento):
+> - `popularMovies.test.ts` — `fetchPopularMovies` com `jest.mock('@/services/api')` (+1)
+> - CI GitHub Actions verde no fork (workflow já vem pronto em `.github/workflows/test.yml`)
+> - Testes parametrizados (`it.each`)
 
 ---
 
 ## Recomendado: use IA pra acelerar
 
-Vimos na aula 1. Use Cursor / Gemini CLI / Claude Code:
+> "Gere testes Jest pra `useFavoritesStore` (Zustand) cobrindo add/remove/toggle/isFavorite/clear, com `beforeEach` resetando o state via `setState`."
 
-> "Implemente `isValidEmail` em Swift usando regex simples."
-
-> "Crie 5 testes XCTest pra Utilities, cobrindo happy path + edge case."
-
-> "Configure JaCoCo no `build.gradle` Android pra gerar coverage."
-
-⚠️ **Valida cada bloco antes de colar.** IA às vezes mistura APIs antigas (XCTest pre-iOS 16) ou JUnit 4 vs 5.
+⚠️ **Valida cada teste antes de commitar.** IA alucina: import de path errado, `expect` sem matcher, mock que não bate com a assinatura real (`api.get(url, config)`). Teste que não tem `expect` infla cobertura e não testa nada.
 
 ---
 
@@ -151,26 +109,21 @@ Vimos na aula 1. Use Cursor / Gemini CLI / Claude Code:
 
 1. Fork do repo público: <https://github.com/jacksonsmith/puc-iec-testes-aplicacoes-mobile>
 2. Branch `entrega/atividade-2-<seu-nome>` no seu fork
-3. **Criar pasta** `exercicios/02-setup-suite-unitaria/<seu-nome>/` no SEU fork (não no upstream)
-4. Colocar dentro: projeto Xcode ou Android Studio + README.md + screenshot
-5. Commit + push pro seu fork
-6. Submeter no Canvas com link do commit
+3. Trabalhe direto em `exercicios/02-setup-suite-unitaria/starter/__tests__/` no SEU fork
+4. Commit + push pro seu fork (**NÃO comite `node_modules/` nem `coverage/`** — `.gitignore` já cuida)
+5. Submeter no Canvas com link do commit (ou PR)
 
 **Detalhes do workflow:** ver página *"Como entregar atividades pelo GitHub"* no Canvas módulo Início.
 
-> **Tamanho do repo:** não comite `Pods/`, `DerivedData/`, `.gradle/`, `build/`, `local.properties`. Use `.gitignore` padrão (Xcode template ou Android Studio template já tem).
-
 ## O que você NÃO precisa fazer
 
-- Não precisa **app inteiro** (só projeto template + 1 classe Utilities testada)
-- Não precisa **UI tests** (só unit) — vai ter atividade pra isso depois
-- Não precisa Mock / Stub formais (bonus)
-- Não precisa CI Actions (bonus)
-- Não precisa **ambas** plataformas (1 só — bonus se fizer)
+- **Não implementa feature** — o código de produção já está pronto
+- **Não precisa rodar o app** (sem token/simulador) — testes (incl. RNTL) rodam só com Node
+- **Não precisa E2E** (app rodando ponta a ponta) — isso é Aula 3 (Detox/Maestro)
 
 ## Material de apoio (todos no GitHub público)
 
-- **[template-relatorio.md](https://github.com/jacksonsmith/puc-iec-testes-aplicacoes-mobile/blob/main/exercicios/02-setup-suite-unitaria/template-relatorio.md)** — README modelo
+- **[starter (app + scaffolds)](https://github.com/jacksonsmith/puc-iec-testes-aplicacoes-mobile/tree/main/exercicios/02-setup-suite-unitaria/starter)** — README com tasks
 - **[guia-passo-a-passo.md](https://github.com/jacksonsmith/puc-iec-testes-aplicacoes-mobile/blob/main/exercicios/02-setup-suite-unitaria/guia-passo-a-passo.md)** — comandos + troubleshooting
-- **[Material aula 2](https://github.com/jacksonsmith/puc-iec-testes-aplicacoes-mobile/tree/main/material-de-apoio/aula-02)** (XCTest, JUnit5, MockK, Bach SBTM)
+- **[template-relatorio.md](https://github.com/jacksonsmith/puc-iec-testes-aplicacoes-mobile/blob/main/exercicios/02-setup-suite-unitaria/template-relatorio.md)** — README modelo
 - **[Slide aula 2](https://github.com/jacksonsmith/puc-iec-testes-aplicacoes-mobile/blob/main/slides/aula-02/aula-02-setup-manual-unit.pdf)**

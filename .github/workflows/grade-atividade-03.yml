@@ -1,7 +1,7 @@
 name: Grade — Atividade 3 (Native UI)
 
 on:
-  pull_request:
+  pull_request_target:  # PRs de forks rodam sem aprovação manual
     paths:
       - 'exercicios/03-suite-native-ui/aluno-*/**'
 
@@ -16,10 +16,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - uses: actions/setup-node@v4
         with: { node-version: 22 }
       - working-directory: ./grader
-        run: npm ci || npm install
+        run: npm install
 
       - id: discover
         run: |

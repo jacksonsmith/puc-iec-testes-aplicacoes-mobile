@@ -1,263 +1,175 @@
-# Guia passo a passo — Atividade 2 (Setup + Suíte Unitária)
+# Guia passo a passo — Atividade 2 (Suíte Unitária RN)
 
-> Manual prático ~1-2h. Escolha **iOS OU Android** (não ambos).
+> Manual prático ~1-2h. Você escreve testes Jest sobre o app que já vem pronto. Sem simulador, sem token, sem rede.
 
 ---
 
-## Caminho A — iOS (XCTest)
-
-### A1. Pré-requisitos
-
-- macOS (XCode só roda em Mac)
-- **Xcode 16+** — Mac App Store (download grande, ~10GB)
-- Simulator funcional
+## 1. Setup (~10min)
 
 ```bash
-xcodebuild -version
-# Xcode 16.2 ou superior
+# Fork no GitHub, depois clone o SEU fork:
+git clone https://github.com/SEU-USUARIO/puc-iec-testes-aplicacoes-mobile.git
+cd puc-iec-testes-aplicacoes-mobile/exercicios/02-setup-suite-unitaria/starter
+
+node -v        # precisa v22.x  (use nvm: nvm install 22 && nvm use 22)
+npm install    # ~2-3min na primeira vez
+npm test       # posterUrl passa verde (3 testes); o resto aparece como "todo"
 ```
 
-### A2. Criar projeto
+Saída esperada:
 
-1. Xcode → File → New → Project
-2. iOS → **App** → Next
-3. Product Name: `MeuApp` · Interface: SwiftUI · Language: Swift · ✅ Include Tests
-4. Save
-
-Estrutura criada automaticamente:
 ```
-MeuApp/
-├── MeuApp/
-│   ├── MeuAppApp.swift
-│   └── ContentView.swift
-├── MeuAppTests/
-│   └── MeuAppTests.swift
-└── MeuApp.xcodeproj
+PASS  __tests__/posterUrl.test.ts
+Tests:  3 passed, 12 failed, 7 todo, 22 total
 ```
 
-### A3. Adicionar `Utilities.swift`
+> **Vermelho é esperado no começo.** Os testes fáceis já vêm com Arrange/Act prontos — você completa só o `expect` pra virar verde. Os 🔴 desafios estão como `todo` (escreva o teste inteiro a partir da dica).
 
-File → New → File → Swift File → `Utilities.swift` em `MeuApp/`:
+---
 
-```swift
-import Foundation
+## 2. Anatomia de um teste (modelo `posterUrl.test.ts`)
 
-enum Utilities {
-    static func isValidEmail(_ s: String) -> Bool {
-        let pattern = #"^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"#
-        return s.range(of: pattern, options: .regularExpression) != nil
-    }
-    
-    static func daysBetween(_ start: Date, _ end: Date) -> Int {
-        let calendar = Calendar.current
-        return calendar.dateComponents([.day], from: start, to: end).day ?? 0
-    }
-    
-    static func formatCurrencyBRL(_ value: Decimal) -> String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.locale = Locale(identifier: "pt_BR")
-        return formatter.string(from: value as NSDecimalNumber) ?? ""
-    }
-    
-    static func capitalizeWords(_ s: String) -> String {
-        s.capitalized
-    }
-    
-    static func average(_ numbers: [Double]) -> Double {
-        guard !numbers.isEmpty else { return 0 }
-        return numbers.reduce(0, +) / Double(numbers.count)
-    }
-}
+```typescript
+import { posterUrl } from '../src/utils/poster-url';
+
+describe('posterUrl', () => {           // agrupa
+  it('monta URL com size default', () => {   // 1 caso
+    expect(posterUrl('/a.jpg')).toBe('https://image.tmdb.org/t/p/w342/a.jpg');
+  });
+});
 ```
 
-### A4. Escrever testes
+`describe` agrupa · `it`/`test` é um caso · `expect(x).toBe(y)` é o oráculo.
 
-Substituir conteúdo de `MeuAppTests/MeuAppTests.swift`:
+---
 
-```swift
-import XCTest
-@testable import MeuApp
+## 3. Testando store Zustand (`favoritesStore.test.ts`)
 
-final class UtilitiesTests: XCTestCase {
-    func test_isValidEmail_happyPath() {
-        XCTAssertTrue(Utilities.isValidEmail("aluno@puc.br"))
-    }
-    
-    func test_isValidEmail_emptyString_returnsFalse() {
-        XCTAssertFalse(Utilities.isValidEmail(""))
-    }
-    
-    func test_daysBetween_sameDay_returnsZero() {
-        let now = Date()
-        XCTAssertEqual(Utilities.daysBetween(now, now), 0)
-    }
-    
-    func test_formatCurrencyBRL_oneThousand_containsR$() {
-        let s = Utilities.formatCurrencyBRL(1000)
-        XCTAssertTrue(s.contains("R$"))
-    }
-    
-    func test_average_emptyArray_returnsZero() {
-        XCTAssertEqual(Utilities.average([]), 0)
-    }
-}
+Store é **singleton** — sem reset, um teste vaza pro outro. O scaffold já tem o `beforeEach`:
+
+```typescript
+import { useFavoritesStore } from '../src/store/favoritesStore';
+
+beforeEach(() => {
+  useFavoritesStore.setState({ ids: [] });   // reset entre testes
+});
+
+const s = () => useFavoritesStore.getState();   // atalho
+
+it('add(id) adiciona o id', () => {
+  s().add(1);
+  expect(s().ids).toEqual([1]);
+});
+
+it('toggle remove se já existe', () => {
+  s().add(1);
+  s().toggle(1);
+  expect(s().ids).toEqual([]);
+});
 ```
 
-### A5. Rodar (Cmd+U no Xcode)
+`getState()` lê estado e actions fora de componente React.
 
-5 testes devem ficar verdes. Screenshot.
+---
 
-### A6. CLI (opcional pra README)
+## 4. Testando função pura (`api.test.ts`)
 
-```bash
-xcodebuild test \
-  -scheme MeuApp \
-  -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.0'
+`isTokenError` é função pura — passe objetos de erro, verifique o booleano:
+
+```typescript
+import { isTokenError } from '../src/services/api';
+
+it('true pra 401', () => {
+  expect(isTokenError({ response: { status: 401 } })).toBe(true);
+});
+it('false pra null', () => {
+  expect(isTokenError(null)).toBe(false);
+});
 ```
 
 ---
 
-## Caminho B — Android (JUnit + Kotlin)
+## 5. Teste de tela — RNTL (`MovieCard.test.tsx`) ⭐
 
-### B1. Pré-requisitos
+O teste mais "cara de QA": valida o que o usuário **vê** e **faz**. MovieCard usa `useNavigation()` → mocke o hook (não há `NavigationContainer` no teste).
 
-- **Android Studio** Iguana 2024.1+ — <https://developer.android.com/studio>
-- **JDK 17** (Android Studio bundleia)
-- AVD configurado (Tools → Device Manager → Create Device → Pixel 8 API 34)
+```typescript
+import { render, screen, fireEvent } from '@testing-library/react-native';
+import MovieCard from '../src/components/MovieCard';
 
-```bash
-./gradlew --version
-# Gradle 8.x + JDK 17
+const mockNavigate = jest.fn();
+jest.mock('@react-navigation/native', () => ({
+  useNavigation: () => ({ navigate: mockNavigate }),
+}));
+
+const movie = { id: 42, title: 'Matrix', poster_path: '/m.jpg', vote_average: 8.7 };
+
+it('mostra título e nota', () => {
+  render(<MovieCard movie={movie} />);
+  expect(screen.getByText('Matrix')).toBeTruthy();
+  expect(screen.getByText('⭐ 8.7')).toBeTruthy();
+});
+
+it('navega pro detalhe ao tocar', () => {
+  render(<MovieCard movie={movie} />);
+  fireEvent.press(screen.getByText('Matrix'));
+  expect(mockNavigate).toHaveBeenCalledWith('Detail', { id: 42, title: 'Matrix' });
+});
 ```
 
-### B2. Criar projeto
-
-1. Android Studio → New Project → **Empty Activity**
-2. Name: `MeuApp` · Package: `com.example.meuapp` · Language: Kotlin · Min SDK: API 24
-3. Finish
-
-### B3. Adicionar `Utilities.kt`
-
-`app/src/main/java/com/example/meuapp/Utilities.kt`:
-
-```kotlin
-package com.example.meuapp
-
-import java.text.NumberFormat
-import java.util.Locale
-import java.util.concurrent.TimeUnit
-
-object Utilities {
-    private val emailRegex = Regex("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")
-
-    fun isValidEmail(s: String): Boolean = emailRegex.matches(s)
-
-    fun daysBetween(startMillis: Long, endMillis: Long): Long =
-        TimeUnit.MILLISECONDS.toDays(endMillis - startMillis)
-
-    fun formatCurrencyBRL(value: Double): String =
-        NumberFormat.getCurrencyInstance(Locale("pt", "BR")).format(value)
-
-    fun capitalizeWords(s: String): String =
-        s.split(" ").joinToString(" ") { it.replaceFirstChar { ch -> ch.uppercaseChar() } }
-
-    fun average(numbers: List<Double>): Double =
-        if (numbers.isEmpty()) 0.0 else numbers.sum() / numbers.size
-}
-```
-
-### B4. Escrever testes
-
-`app/src/test/java/com/example/meuapp/UtilitiesTest.kt`:
-
-```kotlin
-package com.example.meuapp
-
-import org.junit.Test
-import org.junit.Assert.*
-
-class UtilitiesTest {
-    @Test
-    fun isValidEmail_happyPath() {
-        assertTrue(Utilities.isValidEmail("aluno@puc.br"))
-    }
-
-    @Test
-    fun isValidEmail_emptyString_returnsFalse() {
-        assertFalse(Utilities.isValidEmail(""))
-    }
-
-    @Test
-    fun daysBetween_sameDay_returnsZero() {
-        val now = System.currentTimeMillis()
-        assertEquals(0L, Utilities.daysBetween(now, now))
-    }
-
-    @Test
-    fun formatCurrencyBRL_oneThousand_containsR$() {
-        val s = Utilities.formatCurrencyBRL(1000.0)
-        assertTrue(s.contains("R$"))
-    }
-
-    @Test
-    fun average_emptyList_returnsZero() {
-        assertEquals(0.0, Utilities.average(emptyList()), 0.001)
-    }
-}
-```
-
-### B5. Rodar
-
-Android Studio → Run → All Tests OU CLI:
-
-```bash
-./gradlew testDebugUnitTest
-```
-
-5 testes verdes. Screenshot.
+`screen.getByText` = o que aparece · `fireEvent.press` = o toque.
 
 ---
 
-## Passo final — README + entrega
+## 6. Cobertura
 
-Copia `template-relatorio.md` desta pasta pra `README.md` na raiz do seu projeto.
+```bash
+npm run test:coverage
+open coverage/lcov-report/index.html   # macOS  (Linux: xdg-open)
+```
 
-Tirar screenshot dos testes verdes:
-- iOS: Test Navigator (Cmd+6) com 5 ✓ verdes
-- Android: Run window com 5 PASSED
+Meta: **≥ 70%** em `src/store` e `src/utils`. Vermelho no relatório = linha não executada por teste.
 
-Entrega via fork + PR — ver guia *"Como entregar atividades pelo GitHub"* no Canvas.
+---
+
+## 7. Bônus — mock de dependência (`popularMovies.test.ts`)
+
+```typescript
+import { fetchPopularMovies } from '../src/queries/movies/get-popular-movies';
+import { api } from '../src/services/api';
+
+jest.mock('@/services/api');               // troca o módulo real por mock
+const mockedGet = api.get as jest.Mock;
+
+it('chama /movie/popular e devolve data', async () => {
+  mockedGet.mockResolvedValue({ data: { page: 1, results: [] } });
+  const out = await fetchPopularMovies(1);
+  expect(mockedGet).toHaveBeenCalledWith('/movie/popular', { params: { page: 1 } });
+  expect(out.page).toBe(1);
+});
+```
 
 ---
 
 ## Troubleshooting
 
-### iOS
+| Erro | Causa | Fix |
+|---|---|---|
+| `Cannot find module 'zustand'` | esqueceu `npm install` | rode `npm install` |
+| testes passam isolados, falham juntos | store não resetada | `setState` no `beforeEach` |
+| cobertura 100% mas "não testei nada" | teste sem `expect` | todo `it` precisa de ao menos 1 assert |
+| `Couldn't find a navigation object` no MovieCard | faltou mockar `useNavigation` | adicione o `jest.mock('@react-navigation/native', ...)` |
+| `npm install` falha / pacote não encontrado | registry errado | o `.npmrc` do projeto já aponta pro npm público; rode na raiz do `starter` |
 
-| Problema | Solução |
-|---|---|
-| Build falha — "No such module 'XCTest'" | Confere que tem target `MeuAppTests` no projeto |
-| Simulator não abre | Xcode → Window → Devices and Simulators → criar manual |
-| Cmd+U não roda nada | Verifica scheme — Edit Scheme → Test → adiciona `MeuAppTests` |
+---
 
-### Android
+## Entrega
 
-| Problema | Solução |
-|---|---|
-| `Could not find org.junit:junit:4.x` | `app/build.gradle` → adicionar `testImplementation 'junit:junit:4.13.2'` |
-| `Cannot resolve symbol 'Test'` | Confere `import org.junit.Test` no topo |
-| Build sync infinito | Tools → Invalidate Caches and Restart |
-| Gradle wrapper not found | `gradle wrapper` no projeto raiz |
+```bash
+git checkout -b entrega/atividade-2-seu-nome
+git add exercicios/02-setup-suite-unitaria/starter/__tests__
+git commit -m "test(atv2): suite unitaria favoritesStore + counterStore + api"
+git push origin entrega/atividade-2-seu-nome
+```
 
-## Dicas de IA assistida
-
-Prompts úteis:
-
-> "Implemente Utilities.swift com 5 funções: isValidEmail (regex), daysBetween (Calendar), formatCurrencyBRL (NumberFormatter ptBR), capitalizeWords, average."
-
-> "Escreva 5 testes XCTest pra Utilities — 1 happy + 1 edge por função importante."
-
-> "Como configurar JaCoCo coverage no Android Studio com Gradle?"
-
-⚠️ Valide cada bloco — IA mistura JUnit 4 vs 5 frequentemente, e APIs Swift mudam por versão Xcode.
+> **NUNCA** comite `node_modules/` nem `coverage/` — o `.gitignore` já cuida. Submeta o link do commit/PR no Canvas.
