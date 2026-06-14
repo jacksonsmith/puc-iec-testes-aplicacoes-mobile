@@ -22,6 +22,10 @@ beforeEach(() => {
 // Atalho pra ler estado e actions fora de componente React:
 const s = () => useFavoritesStore.getState();
 
+// Creation Method: "prepara o cenário" (Arrange) falando o domínio,
+// em vez de repetir s().add(...) em cada teste.
+const comFavoritos = (...ids: number[]) => ids.forEach((id) => s().add(id));
+
 // FÁCEIS (1-4): Arrange e Act já escritos — complete SÓ o expect (começam vermelhos → verde).
 // 🔴 DESAFIOS (5-6): ainda it.todo — escreva o teste inteiro a partir da dica.
 
@@ -35,7 +39,7 @@ describe('favoritesStore', () => {
 
   it('2. desfavoritar tira o filme da lista (remove)', () => {   // 🧑‍🏫 em aula
     // Arrange
-    s().add(1);
+    comFavoritos(1);
     // Act
     s().remove(1);
     // Assert — complete:
@@ -44,7 +48,7 @@ describe('favoritesStore', () => {
 
   it('3. sei se um filme está favoritado (isFavorite)', () => {   // 🧑‍💻 aluno
     // Arrange
-    s().add(1);
+    comFavoritos(1);
     // Assert — complete (true ou false?):
     expect(s().isFavorite(1)).toBe(/* TODO */);
     expect(s().isFavorite(99)).toBe(/* TODO */);
@@ -52,8 +56,7 @@ describe('favoritesStore', () => {
 
   it('4. limpar esvazia todos os favoritos (clear)', () => {   // 🧑‍💻 aluno
     // Arrange
-    s().add(1);
-    s().add(2);
+    comFavoritos(1, 2);
     // Act
     s().clear();
     // Assert — complete:

@@ -4,12 +4,11 @@
 //    É ESTE o arquivo da Parte B; os outros 2 da pasta são prática (não contam).
 //    Marca por it(): 🧑‍🏫 = a gente faz junto em aula · 🧑‍💻 = o aluno faz sozinho.
 //
-// Testa o FLUXO entre componentes da versão implementada (src/integration/):
-// a lista busca dados (API mockada) e favoritar um card reflete no contador
-// do header. Integração de verdade: store + query + componentes juntos, sem simulador.
+// Testa o FLUXO entre componentes (src/integration/): a lista busca dados (API
+// mockada) e favoritar um card reflete no contador do header. Sem simulador.
 //
-// O setup abaixo (mock da API, dados falsos, wrapper com QueryClientProvider)
-// JÁ ESTÁ PRONTO. Você só escreve os 3 it() — troque cada it.todo por it(...).
+// O setup (renderApp + mock + fixture) está em ./_helpers — leia pra entender;
+// aqui você escreve só os 3 it() de comportamento.
 //
 // Pontos de teste expostos pela tela:
 //   testID="favorites-count"        → contador do header (texto "♥ N")
@@ -20,41 +19,16 @@
 //   fireEvent.press(screen.getByTestId('movie-card-heart-1'))
 //   expect(screen.getByTestId('favorites-count')).toHaveTextContent('1')
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { render, screen, fireEvent } from '@testing-library/react-native';
-import React from 'react';
-import { api } from '@/services/api';
 import { useFavoritesStore } from '@/store/favoritesStore';
-import AppNavigator from '@/integration/AppNavigator';
+import { renderApp, mockListaDeFilmes } from './_helpers';
 
-// Mocka a camada HTTP — a lista vem desses dados falsos (sem rede, sem token TMDB).
+// jest.mock fica AQUI (é hoisted por arquivo) — é assim que a API vira mockada.
 jest.mock('@/services/api');
-const mockedGet = api.get as jest.Mock;
-
-const movies = {
-  page: 1,
-  total_pages: 1,
-  total_results: 2,
-  results: [
-    { id: 1, title: 'Matrix', overview: '', poster_path: '/m.jpg', release_date: '1999', vote_average: 8.7 },
-    { id: 2, title: 'Inception', overview: '', poster_path: '/i.jpg', release_date: '2010', vote_average: 8.8 },
-  ],
-};
-
-// QueryClient novo por teste → cache não vaza entre os it().
-function renderApp() {
-  const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
-  return (
-    <QueryClientProvider client={client}>
-      <AppNavigator />
-    </QueryClientProvider>
-  );
-}
 
 beforeEach(() => {
   useFavoritesStore.setState({ ids: [] }); // store é singleton — zere entre testes
-  mockedGet.mockReset();
-  mockedGet.mockResolvedValue({ data: movies });
+  mockListaDeFilmes();
 });
 
 describe('Fluxo de integração — lista + favoritos (ENTREGA Parte B)', () => {
