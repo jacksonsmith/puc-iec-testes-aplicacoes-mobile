@@ -136,3 +136,5 @@ grep -rn "it.todo\|TODO \[TASK" __tests__/   # ver o que falta
 - [React Native Testing Library](https://callstack.github.io/react-native-testing-library/)
 - [Zustand — testing](https://github.com/pmndrs/zustand/blob/main/docs/guides/testing.md)
 - [xUnit Test Patterns (Meszaros)](http://xunitpatterns.com/)
+
+<!-- smoke-test autograder afaa8b2 -->
