@@ -12,7 +12,7 @@ name: Grade — Atividade 4 (Maestro Suite)
 # Mantemos parse-only nesta fase por custo/simplicidade.
 
 on:
-  pull_request:
+  pull_request_target:  # PRs de forks rodam sem aprovação manual
     paths:
       - 'exercicios/04-suite-maestro-cross-platform/aluno-*/**'
 
@@ -30,6 +30,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Setup Node 22
         uses: actions/setup-node@v4
@@ -38,7 +39,7 @@ jobs:
 
       - name: Install grader deps
         working-directory: ./grader
-        run: npm ci || npm install
+        run: npm install
 
       - name: Discover entrega path
         id: discover
