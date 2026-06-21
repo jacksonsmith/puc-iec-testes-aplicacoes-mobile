@@ -1,4 +1,4 @@
-appId: com.android.calculator2
+appId: org.fossify.calculator
 ---
 - launchApp
 - tapOn: "7"

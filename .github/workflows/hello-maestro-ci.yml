@@ -32,6 +32,8 @@ jobs:
 
       - name: Run Maestro flows on Android Emulator
         uses: reactivecircus/android-emulator-runner@v2
+        env:
+          GH_TOKEN: ${{ github.token }}
         with:
           api-level: 30
           target: default
