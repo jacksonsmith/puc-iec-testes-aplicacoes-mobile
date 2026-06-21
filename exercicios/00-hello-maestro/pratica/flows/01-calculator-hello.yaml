@@ -1,5 +1,11 @@
 appId: com.android.settings
 ---
 - launchApp
+- runFlow:
+    when:
+      visible: "isn't responding"
+    commands:
+      - tapOn: "Wait"
 - waitForAnimationToEnd
+- assertVisible: "Settings"
 - takeScreenshot: "01-settings-screenshot"
