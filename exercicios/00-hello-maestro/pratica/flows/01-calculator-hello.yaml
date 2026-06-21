@@ -1,10 +1,4 @@
-appId: com.android.calculator2
+appId: com.android.settings
 ---
 - launchApp
-- tapOn: "7"
-- tapOn:
-    text: "+"
-- tapOn: "3"
-- tapOn: "="
-- assertVisible: "10"
-# testando CI
+- assertVisible: "Network & internet"
