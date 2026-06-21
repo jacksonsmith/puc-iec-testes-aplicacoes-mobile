@@ -8,6 +8,9 @@ on:
     paths:
       - 'exercicios/00-hello-maestro/pratica/flows/**'
 
+permissions:
+  pull-requests: write
+
 jobs:
   maestro:
     runs-on: ubuntu-latest
@@ -38,9 +41,55 @@ jobs:
           disable-animations: true
           script: maestro test exercicios/00-hello-maestro/pratica/flows/ --format junit --output results.xml
 
-      - name: Upload test results
+      - name: Upload screenshots + results
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: maestro-results
-          path: results.xml
+          path: |
+            results.xml
+            *.png
+
+      - name: Comment PR with result
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let summary = '';
+            try {
+              const xml = fs.readFileSync('results.xml', 'utf8');
+              const tests = (xml.match(/tests="(\d+)"/)?.[1]) || '?';
+              const failures = (xml.match(/failures="(\d+)"/)?.[1]) || '?';
+              const passed = parseInt(tests) - parseInt(failures);
+              const icon = failures === '0' ? '✅' : '❌';
+              summary = `${icon} **Hello Maestro:** ${passed}/${tests} flows passaram`;
+            } catch {
+              summary = '⚠️ Não foi possível ler results.xml';
+            }
+
+            const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const body = `## 🤖 Maestro CI\n\n${summary}\n\n📦 [Ver screenshots e resultados completos](${runUrl})`;
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const existing = comments.find(c => c.body.includes('🤖 Maestro CI'));
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }

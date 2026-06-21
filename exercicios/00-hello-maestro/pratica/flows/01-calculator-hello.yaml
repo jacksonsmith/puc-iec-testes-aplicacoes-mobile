@@ -2,3 +2,4 @@ appId: com.android.settings
 ---
 - launchApp
 - assertVisible: "Network & internet"
+- takeScreenshot: "01-settings-home"
