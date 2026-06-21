@@ -36,10 +36,7 @@ jobs:
           profile: pixel_6
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim
           disable-animations: true
-          script: |
-            maestro test exercicios/00-hello-maestro/pratica/flows/ \
-              --format junit \
-              --output results.xml
+          script: maestro test exercicios/00-hello-maestro/pratica/flows/ --format junit --output results.xml
 
       - name: Upload test results
         uses: actions/upload-artifact@v4
