@@ -15,30 +15,30 @@ App educacional desenvolvido pelo prof especificamente pra esta disciplina. **35
 - 🤖 **Play Store:** https://play.google.com/store/apps/details?id=com.apptestesmobile
 - 📦 **Bundle ID:** `com.apptestesmobile`
 
-Instale via lojas (gratuito). Use como alvo de **todas** as suítes Maestro/Espresso/XCUITest da disciplina.
+Instale via lojas (gratuito). Use como alvo das suítes **Maestro** (E2E) da disciplina.
 
 ## Calendário
 
 | # | Data | Dia | Tema |
 |---|------|-----|------|
 | 1 | 21/05/2026 | Quinta | Fundamentos de Testes Mobile e Pirâmide de Testes |
-| 2 | 28/05/2026 | Quinta | Setup, Manual Estruturado e Testes Unitários Mobile |
-| 3 | 08/06/2026 | Segunda | Automação Nativa — Espresso, XCUITest, Detox |
-| 4 | 15/06/2026 | Segunda | Maestro Cross-Platform, Appium e Cloud Devices |
-| 5 | 22/06/2026 | Segunda | Performance, Segurança e Observabilidade |
-| 6 | 02/07/2026 | Quinta | IA em Testes Mobile, CI/CD e Apresentações Finais |
+| 2 | 28/05/2026 | Quinta | Setup RN e Testes Manuais Estruturados (SBTM, tours) |
+| 3 | 15/06/2026 | Segunda | Unit Testing RN — Jest + React Native Testing Library |
+| 4 | 22/06/2026 | Segunda | E2E com Maestro + Appium (comparativo) + Cloud Devices |
+| 5 | 29/06/2026 | Segunda | Performance, Segurança e Observabilidade |
+| 6 | 09/07/2026 | Quinta | IA em Testes Mobile, CI/CD e Apresentações Finais |
 
 Todos encontros das 19:00 às 22:30 (horário Brasília).
 
 ## Ementa
 
-Conceitos gerais de testes mobile. Tipos de teste (funcionais, usabilidade, integração, desempenho, segurança, estabilidade). Principais ferramentas — Maestro, Appium, Detox, Espresso, XCUITest. Estratégias de teste para aplicações mobile. Processos de avaliação. Verificação de desempenho de tags, keywords e métricas. Simulação de navegador remoto e visualização de aplicativos. Avaliação em dispositivos reais. Automatização de testes. Aplicação de IA em testes mobile (visual AI, geração via LLM, agentes autônomos).
+Conceitos gerais de testes mobile. Tipos de teste (funcionais, usabilidade, integração, desempenho, segurança, estabilidade). Principais ferramentas — Jest, React Native Testing Library, Maestro e Appium. Estratégias de teste para aplicações mobile. Processos de avaliação. Verificação de desempenho de tags, keywords e métricas. Simulação de navegador remoto e visualização de aplicativos. Avaliação em dispositivos reais. Automatização de testes. Aplicação de IA em testes mobile (visual AI, geração via LLM, agentes autônomos).
 
 ## Stack didática
 
-- **UI nativa:** Espresso (Android), XCUITest (iOS)
-- **Cross-platform principal:** Maestro (mobile.dev)
-- **Comparativo:** Appium 2, Detox (RN)
+- **Unit / Integração:** Jest + React Native Testing Library
+- **E2E cross-platform:** Maestro (mobile.dev)
+- **Comparativo E2E:** Appium 2 (panorama)
 - **Cloud devices:** Firebase Test Lab + BrowserStack App Live
 - **Performance:** Android Studio Profiler, Xcode Instruments, Macrobenchmark
 - **Segurança:** OWASP MASVS v2.1, MobSF, Frida (defensiva)
@@ -49,24 +49,22 @@ Conceitos gerais de testes mobile. Tipos de teste (funcionais, usabilidade, inte
 
 ```
 .
-├── exercicios/      # Atividades por aula (sem gabarito)
-├── starters/        # Repos starter de cada aula
-├── labs/            # Hands-on labs feitos em sala
-├── README.md        # Você está aqui
-└── BIBLIOGRAFIA.md  # Referências completas
+├── exercicios/      # Atividades por aula (cada uma com pratica/ — sem gabarito)
+├── slides/          # PDFs das aulas
+├── grader/          # Autograder (CI)
+├── docs/            # Guias auxiliares
+└── README.md        # Você está aqui
 ```
 
 ## Avaliação (100 pts)
 
 | Item | Pontos |
 |------|--------|
-| Atividade 1 — Análise de Cobertura | 15 |
-| Atividade 2 — Setup + Suíte Unitária | 10 |
-| Atividade 3 — Suíte Native UI | 15 |
-| Atividade 4 — Suíte Maestro | 15 |
-| Atividade 5 — Performance + Security | 10 |
-| Quiz IA Mobile Testing | 5 |
-| **Projeto Final em Grupo** | **30** |
+| Atividade 1 — Análise de Cobertura (ou Casos de Teste) | 15 |
+| Atividade 2 — Setup + Suíte Unitária (Jest/RNTL) | 10 |
+| Atividade 3 — Suíte Maestro E2E | 15 |
+| Atividade 4 — Performance + Security | 10 |
+| **Projeto Final** | **50** |
 
 ## Como usar
 
@@ -75,9 +73,9 @@ Conceitos gerais de testes mobile. Tipos de teste (funcionais, usabilidade, inte
 git clone https://github.com/jacksonsmith/puc-iec-testes-aplicacoes-mobile.git
 cd puc-iec-testes-aplicacoes-mobile
 
-# Cada aula tem starter em starters/aula-XX/
-cd starters/aula-01
-# Siga README específico da aula
+# Cada atividade tem seu código-base em exercicios/NN-.../pratica/
+cd exercicios/02-suite-jest-rntl/pratica
+# Siga o README/enunciado específico da atividade
 ```
 
 ## Pré-requisitos
@@ -115,7 +113,7 @@ Grupos de 3-4 alunos, escolha um dos 10 temas:
 9. Mobile API Contract Testing
 10. Accessibility Testing Mobile
 
-Detalhes em [`exercicios/06-projeto-final-grupo/`](./exercicios/06-projeto-final-grupo/).
+Detalhes do projeto final serão publicados no Canvas e neste repositório próximo à Aula 6.
 
 ## Como entregar atividades
 
@@ -141,10 +139,9 @@ Algumas atividades são **avaliadas automaticamente** em PR. Workflow:
 
 | # | Atividade | Status |
 |---|-----------|--------|
-| A4 | [Suíte Maestro Cross-Platform](./exercicios/04-suite-maestro-cross-platform/) | ✅ Ativo |
-| A2 | Setup + Suíte Unitária | 🔧 Em breve |
-| A3 | Suíte Native UI (Espresso) | 🔧 Em breve |
-| A1, A5 | Análise de Cobertura, Performance/Security | 📝 Manual (correção pelo prof) |
+| A2 | [Setup + Suíte Unitária](./exercicios/02-suite-jest-rntl/) | 🔧 Em breve |
+| A3 | [Suíte Maestro E2E](./exercicios/03-maestro-e2e/) | 🔧 Em breve |
+| A1, A4 | Análise de Cobertura, Performance/Security | 📝 Manual (correção pelo prof) |
 
 Ver [`grader/README.md`](./grader/README.md) para documentação técnica do autograder.
 

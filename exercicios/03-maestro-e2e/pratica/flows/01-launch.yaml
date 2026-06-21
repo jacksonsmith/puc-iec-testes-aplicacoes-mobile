@@ -1,0 +1,8 @@
+# Flow 1 — Launch + home aparece com categorias (MODELO RESOLVIDO)
+# Use este flow como referência para escrever os outros.
+appId: com.apptestesmobile
+---
+- launchApp
+- assertVisible:
+    id: "home-category-functional"
+- assertVisible: "Testes Funcionais"
