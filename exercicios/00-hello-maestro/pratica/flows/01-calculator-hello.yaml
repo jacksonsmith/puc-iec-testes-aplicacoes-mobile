@@ -1,4 +1,4 @@
-appId: org.fossify.calculator
+appId: com.simplemobiletools.calculator
 ---
 - launchApp
 - tapOn: "7"
