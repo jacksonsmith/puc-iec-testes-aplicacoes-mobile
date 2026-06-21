@@ -9,3 +9,4 @@ env:
 # TODO: tapOn { id: "todolist-add-button" }
 - inputText: ${TODO_ITEM}         # env parametriza o texto — tente mudar o valor acima
 # TODO: assertVisible do item recém-adicionado (use o texto ou todolist-item-${id})
+# smoke-test negativo
