@@ -7,3 +7,4 @@ appId: com.google.android.calculator
 - tapOn: "3"
 - tapOn: "="
 - assertVisible: "10"
+# testando CI
