@@ -13,19 +13,75 @@ Na Aula 4 você viu Maestro ao vivo. `01-launch.yaml` é o modelo resolvido. `02
 
 ---
 
-## Setup (se ainda não fez em aula)
+## Pré-requisitos (setup antes da entrega)
+
+**Rodar verificação de setup:**
+```bash
+curl -L https://raw.githubusercontent.com/jacksonsmith/puc-iec-testes-aplicacoes-mobile/main/setup-maestro-check.sh | bash
+```
+
+Se der erro, seguir os passos abaixo manualmente.
+
+### Passo 1 — Android Platform Tools (adb)
+
+| Sistema | Comando |
+|---|---|
+| **macOS** | `brew install android-platform-tools` |
+| **Windows** | `choco install android-platform-tools` |
+| **Linux** | `sudo apt install android-tools-adb` |
+
+Verificar: `adb --version`
+
+### Passo 2 — Emulator rodando
+
+**Opção A: Android Emulator** (VM local)
+```bash
+# Listar AVDs disponíveis
+emulator -list-avds
+
+# Iniciar emulator (ex: Medium_Phone_API_35)
+emulator -avd Medium_Phone_API_35 -no-snapshot-load -no-audio
+# Flags: -no-snapshot-load (boot fresh, rápido), -no-audio (economia RAM)
+```
+
+**Opção B: Dispositivo físico** (USB)
+```bash
+# Conectar via cabo USB
+adb devices  # deve listar seu device
+```
+
+### Passo 3 — App TestesQAMobile
+
+**Download APK (mais fácil — sem build):**
+```bash
+# Download from GitHub Releases
+curl -L https://github.com/jacksonsmith/puc-iec-testes-aplicacoes-mobile/releases/download/v1.0/app-debug.apk -o app-debug.apk
+
+# Instalar no device/emulator
+adb install app-debug.apk
+```
+
+**Alternativa: Play Store**
+- Android: buscar "Testes QA Mobile" (free)
+- Instalar normalmente
+
+### Passo 4 — Maestro CLI
 
 ```bash
-# Instalar Maestro CLI
 curl -Ls "https://get.maestro.mobile.dev" | bash
 # Windows: iwr get.maestro.mobile.dev/windows | iex
 
-maestro --version   # deve mostrar 1.38.x ou superior
-
-# App-alvo: TestesQAMobile
-# iOS:     com.apptestesmobile  (App Store BR — buscar "Testes QA Mobile")
-# Android: com.apptestesmobile  (Play Store — mesma busca)
+maestro --version  # verificar: 2.6.x ou superior
 ```
+
+### Passo 5 — Testar tudo junto
+
+```bash
+maestro hierarchy  # Maestro consegue enxergar o device?
+# Deve mostrar XML da tela atual
+```
+
+Se tudo passou ✅ — pronto pra entrega!
 
 ---
 
@@ -64,18 +120,36 @@ Cada flow vale **2 pts**: 1pt por existir com `appId:` correto + 1pt por estar c
 
 ## Rodando local
 
+**Setup rápido com emulator automático:**
+```bash
+cd exercicios/03-maestro-e2e
+
+# Inicia emulator + roda todos os flows
+chmod +x ../../maestro-local.sh
+../../maestro-local.sh
+
+# Ou especificar AVD
+../../maestro-local.sh "Pixel_6_API_35" test flows/
+```
+
+**Ou manual (se já tem emulator rodando):**
 ```bash
 cd exercicios/03-maestro-e2e/pratica
 
 # Um flow
 maestro test flows/04-todolist.yaml
 
-# Todos de uma vez
+# Todos
 maestro test flows/
 
-# Visual (Maestro Studio no browser)
+# Visual editor (Maestro Studio — browser em localhost:9999)
 maestro studio
 ```
+
+**Troubleshooting:**
+- Emulator lento? Rodar sem snapshot: `emulator -avd XXX -no-snapshot-load -no-audio`
+- Device não conecta? `adb kill-server && adb start-server`
+- Maestro hierarchy vazio? Restart emulator
 
 ---
 
