@@ -1,0 +1,6 @@
+{
+  // Jest (Orta.vscode-jest): "on-demand" = você clica pra rodar (não roda tudo
+  // sozinho ao abrir, evita ruído/carga). Abra o Test Explorer (🧪) e clique Run
+  // pra ver ✓ verde / ✗ vermelho inline em cada it() + a mensagem do erro na linha.
+  "jest.runMode": "on-demand"
+}

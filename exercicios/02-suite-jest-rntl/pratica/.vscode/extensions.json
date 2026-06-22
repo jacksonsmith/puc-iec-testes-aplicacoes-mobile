@@ -1,0 +1,7 @@
+{
+  // Ao abrir esta pasta no VS Code, ele sugere instalar a extensão abaixo.
+  // Jest (Orta): ✓ verde / ✗ vermelho inline em cada teste + Test Explorer (🧪).
+  "recommendations": [
+    "Orta.vscode-jest"
+  ]
+}

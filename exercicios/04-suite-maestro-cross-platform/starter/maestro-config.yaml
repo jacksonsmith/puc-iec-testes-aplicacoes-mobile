@@ -1,7 +1,0 @@
-# Configuração global Maestro pro starter
-# Ver: https://maestro.mobile.dev/cli/configuration
-
-flows:
-  excludeTags:
-    # Pra rodar só essenciais: maestro test --include-tags essencial flows/
-    # Pra pular avançados: maestro test --exclude-tags avancado flows/
