@@ -70,7 +70,11 @@ powershell -ExecutionPolicy Bypass -File setup-maestro-check.ps1
 ## 5. Rodar os flows
 
 ```bash
+# entre na pasta do app (rode o Maestro SEMPRE daqui, não da raiz):
 cd exercicios/03-maestro-e2e/pratica
+
+ls flows                             # confirme: deve listar 01-launch.yaml, ...  (Windows: dir flows)
+
 maestro test flows/01-launch.yaml   # modelo resolvido — deve passar
 maestro studio                       # editor visual (localhost:9999)
 ```

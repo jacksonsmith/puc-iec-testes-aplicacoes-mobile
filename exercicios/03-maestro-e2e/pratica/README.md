@@ -14,11 +14,20 @@ App **CineFav** (filmes) já implementado e funcionando. **Você não mexe no ap
 📄 **Enunciado + rubrica:** [`../enunciado.md`](../enunciado.md)
 
 ```bash
-# com emulator/device + app instalado:
+# 1. ENTRE nesta pasta (rode o Maestro SEMPRE daqui — não da raiz do repo):
+cd exercicios/03-maestro-e2e/pratica
+
+# 2. Confirme que está no lugar certo — deve listar os flows (01-launch.yaml, ...):
+ls flows            # Windows (PowerShell): dir flows
+#   se NÃO aparecer os .yaml, você está na pasta errada — refaça o passo 1
+
+# 3. Rode (precisa de emulator/device + app CineFav instalado):
 maestro test flows/01-launch.yaml   # modelo resolvido — deve passar
 maestro test flows/                  # todos
 maestro studio                       # editor visual (localhost:9999)
 ```
+
+> 📁 **Erro mais comum:** rodar `maestro` da raiz do repo. O comando precisa enxergar a pasta `flows/` — por isso entre em `exercicios/03-maestro-e2e/pratica` antes.
 
 ---
 
