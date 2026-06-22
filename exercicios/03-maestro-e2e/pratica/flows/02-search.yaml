@@ -10,3 +10,5 @@ env:
 # TODO: abra a busca tocando no botão do header — id "movielist-search-button"
 # TODO: toque no campo "search-input" e use inputText com ${SEARCH_TERM}
 # TODO: assertVisible do ${SEARCH_TERM} (o filme buscado aparece no resultado)
+
+# entrega de teste (smoke)
