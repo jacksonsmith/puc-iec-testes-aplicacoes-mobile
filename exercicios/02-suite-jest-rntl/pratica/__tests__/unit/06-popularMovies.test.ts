@@ -9,7 +9,6 @@
 //
 //   const mockedGet = api.get as jest.Mock;
 //   mockedGet.mockResolvedValue({ data: { page: 1, results: [], total_pages: 1, total_results: 0 } });
-
 import { fetchPopularMovies } from '@/queries/movies/get-popular-movies';
 import { api } from '@/services/api';
 
@@ -21,6 +20,33 @@ beforeEach(() => {
 });
 
 describe('fetchPopularMovies', () => {
-  it.todo('1. busca os filmes populares da página pedida (/movie/popular)');   // 🧑‍💻 aluno
-  it.todo('2. devolve os filmes recebidos da API (data)');   // 🧑‍💻 aluno
+  it('1. busca os filmes populares da página pedida (/movie/popular)', async () => {   // 🧑‍💻 aluno
+    // Arrange
+    mockedGet.mockResolvedValue({ data: { page: 1, results: [], total_pages: 1, total_results: 0 } });
+
+    // Act
+    await fetchPopularMovies(2);
+
+    // Assert
+    expect(mockedGet).toHaveBeenCalledWith('/movie/popular', { params: { page: 2 } });
+  });
+
+  it('2. devolve os filmes recebidos da API (data)', async () => {   // 🧑‍💻 aluno
+    //arrange
+    const fakeResponse = {
+      data: {
+        page: 1,
+        results: [{ id: 42, title: 'Michael' }],
+        total_pages: 1,
+        total_results: 1,
+      },
+    };
+    mockedGet.mockResolvedValue(fakeResponse);
+
+    //act
+    const result = await fetchPopularMovies(1);
+
+    //Assert
+    expect(result).toEqual(fakeResponse.data);
+  });
 });
