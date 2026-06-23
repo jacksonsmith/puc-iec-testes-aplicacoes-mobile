@@ -6,5 +6,5 @@ appId: com.simplemobiletools.calculator
 - tapOn: "3"
 - tapOn: "="
 # TODO: corrija o assert abaixo — o resultado esperado de 7 + 3 é ?
-- assertVisible: "11"
+- assertVisible: "10"
 - takeScreenshot: "calculator-7-plus-3"
