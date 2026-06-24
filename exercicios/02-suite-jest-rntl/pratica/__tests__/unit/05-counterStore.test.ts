@@ -23,26 +23,19 @@ const s = () => useCounterStore.getState();
 
 describe('counterStore', () => {
   it('1. incrementar soma 1 ao contador (increment)', () => {   // 🧑‍💻 aluno
-    // Act
     s().increment();
-    // Assert — complete:
-    expect(s().count).toBe(/* TODO */);
+    expect(s().count).toBe(1);
   });
 
   it('2. decrementar subtrai 1 do contador (decrement)', () => {   // 🧑‍💻 aluno
-    // Act
     s().decrement();
-    // Assert — complete:
-    expect(s().count).toBe(/* TODO */);
+    expect(s().count).toBe(-1);
   });
 
   it('3. resetar volta o contador a 0 (reset)', () => {   // 🧑‍💻 aluno
-    // Arrange
     s().increment();
     s().increment();
-    // Act
     s().reset();
-    // Assert — complete:
-    expect(s().count).toBe(/* TODO */);
+    expect(s().count).toBe(0);
   });
 });
