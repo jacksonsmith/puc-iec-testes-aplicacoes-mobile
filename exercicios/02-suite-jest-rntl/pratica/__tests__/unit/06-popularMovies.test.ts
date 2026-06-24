@@ -21,6 +21,20 @@ beforeEach(() => {
 });
 
 describe('fetchPopularMovies', () => {
-  it.todo('1. busca os filmes populares da página pedida (/movie/popular)');   // 🧑‍💻 aluno
-  it.todo('2. devolve os filmes recebidos da API (data)');   // 🧑‍💻 aluno
+  it('1. busca os filmes populares da página pedida (/movie/popular)', async () => {
+    mockedGet.mockResolvedValueOnce({ data: { results: [] } });
+
+    await fetchPopularMovies({ pageParam: 2 });
+
+    expect(mockedGet).toHaveBeenCalledTimes(1);
+    expect(mockedGet.mock.calls[0][0]).toContain('/movie/popular');
+  });
+  it('2. devolve os filmes recebidos da API (data)', async () => {
+    const data = { page: 1, results: [{ id: 10, title: 'Matrix' }] };
+    mockedGet.mockResolvedValueOnce({ data });
+
+    const result = await fetchPopularMovies({ pageParam: 1 });
+
+    expect(result).toEqual(data);
+  });
 });
