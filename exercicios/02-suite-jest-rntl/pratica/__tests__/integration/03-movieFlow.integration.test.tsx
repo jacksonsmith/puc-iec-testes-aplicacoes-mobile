@@ -36,16 +36,29 @@ describe('Fluxo de integração — lista + favoritos (ENTREGA Parte B)', () => 
   // Em aula, compare os dois — getByRole é a 1ª escolha (slide "RNTL — queries por prioridade").
 
   // Dica: render(renderApp()); expect(await screen.findByText('Matrix')).toBeTruthy();
-  it.todo('1.a a lista aparece — achando pelo TEXTO (findByText)');   // 🧑‍🏫 em aula
+  it('1.a a lista aparece — achando pelo TEXTO (findByText)', async () => {
+    render(renderApp());
+    expect(await screen.findByText('Matrix')).toBeTruthy();
+  });
 
-  // Dica: o ♥ de favoritar tem accessibilityRole="button" e accessibilityLabel="Adicionar favorito".
-  //   const botoes = await screen.findAllByRole('button', { name: 'Adicionar favorito' });
-  //   expect(botoes).toHaveLength(2);   // 2 filmes → 2 botões = a lista renderizou
-  it.todo('1.b a lista aparece — achando pelo ROLE (getByRole, prioridade)');   // 🧑‍🏫 em aula
+  it('1.b a lista aparece — achando pelo ROLE (getByRole, prioridade)', async () => {
+    render(renderApp());
+    const botoes = await screen.findAllByRole('button', { name: 'Adicionar favorito' });
+    expect(botoes).toHaveLength(2);
+  });
 
-  // após carregar, contador começa em '0'; press no heart-1 → '1'.
-  it.todo('2. favoritar um filme soma no contador do topo (♥ 1)');   // 🧑‍💻 aluno
+  it('2. favoritar um filme soma no contador do topo (♥ 1)', async () => {
+    render(renderApp());
+    await screen.findByText('Matrix'); // aguarda lista carregar
+    fireEvent.press(screen.getByTestId('movie-card-heart-1'));
+    expect(screen.getByTestId('favorites-count')).toHaveTextContent('1');
+  });
 
-  // favoritar e depois desfavoritar o mesmo card → contador volta a '0'.
-  it.todo('3. desfavoritar volta o contador a 0');   // 🧑‍💻 aluno
+  it('3. desfavoritar volta o contador a 0', async () => {
+    render(renderApp());
+    await screen.findByText('Matrix');
+    fireEvent.press(screen.getByTestId('movie-card-heart-1')); // favorita
+    fireEvent.press(screen.getByTestId('movie-card-heart-1')); // desfavorita
+    expect(screen.getByTestId('favorites-count')).toHaveTextContent('0');
+  });
 });
