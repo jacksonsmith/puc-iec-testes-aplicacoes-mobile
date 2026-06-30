@@ -21,6 +21,36 @@ beforeEach(() => {
 });
 
 describe('fetchPopularMovies', () => {
-  it.todo('1. busca os filmes populares da página pedida (/movie/popular)');   // 🧑‍💻 aluno
-  it.todo('2. devolve os filmes recebidos da API (data)');   // 🧑‍💻 aluno
+  it('1. busca os filmes populares da página pedida (/movie/popular)', async () => {   // 🧑‍💻 aluno
+        mockedGet.mockResolvedValue({ 
+      data: { page: 2, results: [], total_pages: 1, total_results: 0 } 
+    });
+
+    await fetchPopularMovies(2);
+
+    
+    expect(mockedGet).toHaveBeenCalledWith('/movie/popular', {
+      params: { page: 2 },
+    });
+  });
+
+  it('2. devolve os filmes recebidos da API (data)', async () => {   // 🧑‍💻 aluno
+    
+    const mockMoviesList = [
+      { id: 1, title: 'Filme Falso 1' },
+      { id: 2, title: 'Filme Falso 2' },
+    ];
+    
+    mockedGet.mockResolvedValue({ 
+      data: { page: 1, results: mockMoviesList, total_pages: 1, total_results: 2 } 
+    });
+
+    
+    const resultado = await fetchPopularMovies(1);
+
+    // Assert: Garante que a função repassou adiante exatamente o que veio no 'data' da API
+    // (Pode ser que sua função retorne o objeto completo ou apenas o array .results. 
+    // Se ela retornar só os resultados, mude para expect(resultado).toEqual(mockMoviesList))
+    expect(resultado).toEqual({ page: 1, results: mockMoviesList, total_pages: 1, total_results: 2 });
+  });
 });
