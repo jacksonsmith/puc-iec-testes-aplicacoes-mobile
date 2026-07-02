@@ -11,7 +11,7 @@ import AppNavigator from '@/integration/AppNavigator';
 
 // Fixture: filmes falsos (sem rede, sem token TMDB).
 export const filmes = [
-  { id: 1, title: 'Matrix', overview: '', poster_path: '/m.jpg', release_date: '1999', vote_average: 8.7 },
+  { id: 1, title: 'Michael', overview: '', poster_path: '/m.jpg', release_date: '2026', vote_average: 8.7 },
   { id: 2, title: 'Inception', overview: '', poster_path: '/i.jpg', release_date: '2010', vote_average: 8.8 },
 ];
 
