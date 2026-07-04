@@ -50,6 +50,7 @@ de lista) — meça, otimize, meça de novo, mostre o número mudando.
   "depois".
 - README com os comandos exatos pra reproduzir a medição.
 - Relatório: interpretar os números (não só printar), citar por que a otimização ajudou.
+  Formato/entrega: usar o template obrigatório [`template-relatorio.md`](../../template-relatorio.md) — ver "Entrega" no enunciado principal.
 
 ## Fontes
 

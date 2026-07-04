@@ -34,6 +34,7 @@ Mesmo processo, lado iOS. Não é requisito — quem não tem Mac não perde not
   ver [react-native-accessibility-engine](https://github.com/aryella-lacerda/react-native-accessibility-engine)
   pra assertar isso de forma mais estruturada.
 - Relatório: cenário real de usuário com deficiência tentando usar o app — onde ele travaria.
+  Formato/entrega: usar o template obrigatório [`template-relatorio.md`](../../template-relatorio.md) — ver "Entrega" no enunciado principal.
 
 ## Fontes
 

@@ -1,9 +1,10 @@
 # Trabalho Final em Grupo (60 pts)
 
 **Disciplina:** Testes de Aplicações Mobile
-**Entrega:** até **15/07/2026, 23:59**
+**Entrega (relatório):** até **15/07/2026, 23:59**
 **Modalidade:** grupo (3 a 4 alunos, auto-organizados em sala na Aula 1)
-**Apresentação:** aula final (data confirmada em aula — ver anúncio no Canvas)
+**Apresentação:** **Aula de Reposição, 16/07/2026** (apresentação + demo ao vivo + Q&A)
+**Template de relatório (obrigatório):** [`template-relatorio.md`](./template-relatorio.md) · também em [PDF](./template-relatorio.pdf) e [DOCX](./template-relatorio.docx)
 
 ---
 
@@ -105,9 +106,9 @@ Organizados por **trilha de skill** — escolha pelo que seu grupo curte, não s
 
 | Critério | Peso | Pontos |
 |----------|------|--------|
-| Apresentação oral estruturada (10min + 5min Q&A) | 20% | 12 |
-| Artefato técnico (repo GitHub funcional, executável) | 35% | 21 |
-| Relatório analítico (1pg, conciso, foco em insights) | 20% | 12 |
+| Apresentação oral + **demo ao vivo da prática funcionando** (10min + 5min Q&A) | 20% | 12 |
+| Artefato técnico (repo GitHub funcional, executável — link dentro do relatório) | 35% | 21 |
+| Relatório (template fixo, ver `template-relatorio.md` — 1-2 páginas + anexos) | 20% | 12 |
 | Domínio conceitual demonstrado em Q&A | 15% | 9 |
 | Originalidade e profundidade | 10% | 6 |
 
@@ -120,21 +121,36 @@ Organizados por **trilha de skill** — escolha pelo que seu grupo curte, não s
 - **Cobertura adequada ao tema:** ≥ 5 testes/flows, sem testes triviais. (Tema 12: ≥ 5 bugs
   documentados na Parte A + convertidos em teste automatizado na Parte B.)
 - **Documentação inline:** comentários nos lugares certos (não em todo lugar).
-- **Citações:** referências acadêmicas ou de engenharia real no relatório (mínimo 3) — vale usar as
-  fontes listadas na coluna "Por que é real" acima como ponto de partida.
+- **Citações:** referências acadêmicas ou de engenharia real no relatório (mínimo 3, respondidas
+  na pergunta obrigatória de Anexos do template) — vale usar as fontes listadas na coluna "Por que
+  é real" acima como ponto de partida.
 
 ## Regras
 
 - **Grupo de 3 a 4.** Todos os integrantes devem demonstrar domínio do projeto no Q&A — falta de
   domínio individual gera desconto de nota **individual** (não do grupo todo).
+- **Participação de todos os integrantes é obrigatória** — mas **nem todos precisam apresentar
+  oralmente** (o grupo decide quem fala). Se algum integrante tiver um problema que impeça sua
+  participação, **avisar o professor com antecedência** pra análise caso a caso.
 - **Originalidade:** ≥ 60% de código autoral (não é fork direto de um projeto pronto).
 - **Ética em IA:** uso de IA é incentivado, mas declare no README qual ferramenta usou e em que medida.
   Cópia sem entendimento detectada na apresentação = zero.
 
 ## Entrega
 
-1. Repo GitHub **público** do grupo (pode ser fork ou repo novo — linkar no Canvas).
-2. Relatório 1 página (PDF ou Markdown) no repo.
-3. Apresentação ao vivo na aula final: 10min + 5min Q&A.
+São **2 partes**:
+
+1. **Relatório**, usando o template obrigatório [`template-relatorio.md`](./template-relatorio.md)
+   (também em [PDF](./template-relatorio.pdf)/[DOCX](./template-relatorio.docx)) — enviado como
+   **anexo (upload de arquivo) na atividade do Canvas** — até 15/07, 23:59. **Não existe entrega
+   separada de repo.** Se o tema gerou artefato técnico (repo, código, config), o **link do repo
+   GitHub vai dentro do relatório** (seção Anexos → "Links e evidência adicional") — é ali que o
+   prof confere.
+2. **Apresentação ao vivo + demo da prática funcionando** (10min + 5min Q&A) — **Aula de
+   Reposição, 16/07/2026**. Não é só slide: o grupo precisa **rodar o artefato de verdade** na
+   frente da turma (testes passando, flow rodando, ferramenta executando).
+
+**Ordem de apresentação:** os grupos combinam entre si a ordem (quem apresenta primeiro, segundo,
+etc.) e avisam o professor com antecedência — mesma lógica do auto-organização em grupo da Aula 1.
 
 Dúvidas: Teams da turma ou jackson.96@gmail.com.

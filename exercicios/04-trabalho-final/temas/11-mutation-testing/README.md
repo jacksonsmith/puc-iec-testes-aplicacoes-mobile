@@ -24,6 +24,7 @@ algum teste pega o erro. Se nenhum teste falhar, seus testes não estavam testan
 - README explicando o escopo escolhido e por quê (não precisa ser o app inteiro).
 - Relatório: escolher 2-3 mutantes sobreviventes específicos, explicar o que eles revelam sobre
   gap na suíte de teste original (esse é o insight central do tema, não só rodar a ferramenta).
+  Formato/entrega: usar o template obrigatório [`template-relatorio.md`](../../template-relatorio.md) — ver "Entrega" no enunciado principal.
 - Gate de CI com break-threshold é bônus, não obrigatório.
 
 ## Fontes

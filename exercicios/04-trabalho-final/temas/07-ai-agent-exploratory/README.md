@@ -35,6 +35,7 @@ como contribuição pro relatório — não é esperado "plug and play".
   **descartado** (falso positivo, com explicação do porquê).
 - Relatório: comparar com exploração manual — a IA achou algo que um humano não acharia fácil?
   Ou o oposto, deixou passar algo óbvio?
+  Formato/entrega: usar o template obrigatório [`template-relatorio.md`](../../template-relatorio.md) — ver "Entrega" no enunciado principal.
 
 ## Fontes
 

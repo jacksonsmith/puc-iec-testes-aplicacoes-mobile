@@ -28,6 +28,7 @@ alguém sobe código novo — sem precisar fazer isso na mão.
   temas mas **aqui é o próprio tema**, então esperado que rode).
 - README explicando os jobs/lanes configurados.
 - Relatório: tempo de pipeline (antes de otimizar vs depois, se otimizaram cache/paralelismo).
+  Formato/entrega: usar o template obrigatório [`template-relatorio.md`](../../template-relatorio.md) — ver "Entrega" no enunciado principal.
 
 ## Fontes
 

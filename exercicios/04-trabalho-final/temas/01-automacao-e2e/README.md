@@ -31,6 +31,7 @@ automatizado, rodando sozinho em vários celulares/emuladores. Vocês já fazem 
 - README explicando como rodar em máquina limpa.
 - Print/log/vídeo mostrando os flows passando.
 - Relatório: comparar execução local vs cloud (se tentaram) — o que mudou, o que foi mais confiável.
+  Formato/entrega: usar o template obrigatório [`template-relatorio.md`](../../template-relatorio.md) — ver "Entrega" no enunciado principal.
 
 ## Fontes
 

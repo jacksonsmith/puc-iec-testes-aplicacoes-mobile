@@ -38,6 +38,7 @@ exige emulador rooteado — não recomendado tentar em 2 semanas, é bônus de b
 - Fix aplicado pra pelo menos 2 achados (diff antes/depois, tipo o `allowBackup` do lab).
 - Se tentou MobSF: print/relatório da análise estática.
 - Relatório: framing de risco (o que um atacante faria com cada achado).
+  Formato/entrega: usar o template obrigatório [`template-relatorio.md`](../../template-relatorio.md) — ver "Entrega" no enunciado principal.
 
 ## Fontes
 

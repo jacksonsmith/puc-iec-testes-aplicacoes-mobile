@@ -33,6 +33,7 @@ Ver [github.com/FormidableLabs/react-native-owl](https://github.com/FormidableLa
   mostrar o teste pegando).
 - README explicando como atualizar a baseline quando a mudança de UI é intencional (não é bug).
 - Relatório: discutir falso-positivo/falso-negativo — quando visual regression engana.
+  Formato/entrega: usar o template obrigatório [`template-relatorio.md`](../../template-relatorio.md) — ver "Entrega" no enunciado principal.
 
 ## Fontes
 

@@ -49,6 +49,7 @@ Baseado no recipe oficial ([docs.maestro.dev](https://docs.maestro.dev/examples/
   depois do rename quebrando/consertando os flows).
 - Relatório: comparação de manutenibilidade (quantos lugares precisariam mudar sem POM vs com),
   quando vale a pena vs quando é over-engineering pra uma suíte pequena.
+  Formato/entrega: usar o template obrigatório [`template-relatorio.md`](../../template-relatorio.md) — ver "Entrega" no enunciado principal.
 
 ## Fontes
 

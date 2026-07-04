@@ -61,6 +61,7 @@ e registrem a pontuação junto do session report.
 - ≥ 5 testes automatizados na Parte B, 1 por bug real achado.
 - Relatório: comparar a técnica escolhida com exploração livre sem estrutura — achou mais/menos?
   Mais rápido? Cite os números do paper original como referência de comparação.
+  Formato/entrega: usar o template obrigatório [`template-relatorio.md`](../../template-relatorio.md) — ver "Entrega" no enunciado principal.
 
 ## Fontes
 

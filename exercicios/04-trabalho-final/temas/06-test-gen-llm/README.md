@@ -27,6 +27,7 @@ do que o app deve fazer.
 - README explicando o pipeline (user story → prompt → flow → validação).
 - Relatório: catalogar os erros mais comuns da IA (alucinação de seletor? erro de sintaxe YAML?
   step faltando?) — isso é o insight que vale nota, não só "funcionou".
+  Formato/entrega: usar o template obrigatório [`template-relatorio.md`](../../template-relatorio.md) — ver "Entrega" no enunciado principal.
 
 ## Fontes
 

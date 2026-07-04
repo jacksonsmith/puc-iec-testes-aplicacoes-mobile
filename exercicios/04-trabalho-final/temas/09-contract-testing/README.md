@@ -37,6 +37,7 @@ primeiro.
 - README explicando a limitação de não ter provider próprio (TMDB é 3rd party).
 - Relatório: o que aconteceria se a TMDB mudasse um campo — o app quebra com dado inesperado?
   Testar isso (mockar resposta malformada) é o insight que vale nota.
+  Formato/entrega: usar o template obrigatório [`template-relatorio.md`](../../template-relatorio.md) — ver "Entrega" no enunciado principal.
 
 ## Fontes
 

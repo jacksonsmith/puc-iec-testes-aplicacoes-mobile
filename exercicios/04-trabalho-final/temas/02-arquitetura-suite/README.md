@@ -34,6 +34,7 @@ não achar bug — o produto final é a arquitetura em si, não o bug que ela en
 - README comparando a suíte antes/depois — quantas linhas duplicadas sumiram, o que ficou mais
   fácil de adicionar (ex.: novo teste de tela reaproveitando robot existente).
 - Relatório: por que esse padrão, quais trade-offs (robot demais também pode virar over-engineering).
+  Formato/entrega: usar o template obrigatório [`template-relatorio.md`](../../template-relatorio.md) — ver "Entrega" no enunciado principal.
 
 ## Fontes
 
