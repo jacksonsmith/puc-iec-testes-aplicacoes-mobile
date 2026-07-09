@@ -43,6 +43,12 @@ reports/
 # typescript
 *.tsbuildinfo
 
-# generated native folders
+# generated native folder (iOS não usado no lab — Maestro/build android/ é o que roda em aula)
 /ios
-/android
+
+# android/ é COMMITADO (lab de security requer rebuild local — ver lab-perf-security.md).
+# Só build cache/local config ficam fora:
+android/app/build/
+android/.gradle/
+android/app/.cxx/
+android/local.properties

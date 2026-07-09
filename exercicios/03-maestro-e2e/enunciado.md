@@ -1,9 +1,9 @@
 # Atividade 3 — Suíte Maestro E2E (10 pts)
 
 **Disciplina:** Testes de Aplicações Mobile
-**Entrega:** até **28/06/2026**
+**Entrega:** até **09/07/2026, 23:59**
 **Modalidade:** individual
-**Tempo estimado:** ~2h (flows 01–02 feitos em aula; 03–05 em casa)
+**Tempo estimado:** ~2h (flows 01–03 feitos em aula; 04–05 + bônus em casa)
 
 ---
 

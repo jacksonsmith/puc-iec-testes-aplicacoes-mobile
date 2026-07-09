@@ -92,10 +92,13 @@ maestro studio                       # editor visual (localhost:9999)
 **Atalho com emulator automático:**
 ```bash
 # macOS / Linux
-bash maestro-local.sh
+bash maestro-local.sh                  # usa AVD padrão "Medium_Phone_API_35"
+bash maestro-local.sh SEU_AVD_AQUI     # AVD com outro nome? confira com: emulator -list-avds
 # Windows
 powershell -ExecutionPolicy Bypass -File maestro-local.ps1
 ```
+> **Usando celular físico** (não emulador)? Pule o `maestro-local.sh` — ele tenta *bootar um
+> emulador* e não reconhece device físico. Vá direto: `maestro test flows/01-launch.yaml`.
 
 ---
 
