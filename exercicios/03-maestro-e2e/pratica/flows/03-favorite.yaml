@@ -1,0 +1,34 @@
+# Flow 3 — Favoritar na lista e verificar na tela de Favoritos (asserção cross-tela).
+# Conceito: ação numa tela (favoritar) reflete em outra (Favoritos) + contador.
+appId: com.puciec.cinefav
+---
+- launchApp
+
+# Fazer Login
+- tapOn:
+    id: "login-email-input"
+
+- inputText: "aluno@puc.br"
+
+- tapOn:
+    id: "login-password-input"
+
+- inputText: "1234"
+
+- tapOn:
+    id: "login-submit-button"
+
+# Favoritar Matrix na lista
+- tapOn:
+    id: "movie-card-heart-603"
+
+# Acesar Favoritos
+- tapOn:
+    id: "movielist-favorites-button"
+
+# Valida favorito
+- assertVisible:
+    id: "favorites-item-603"
+
+# Valida contador
+- assertVisible: "1 favorito"
