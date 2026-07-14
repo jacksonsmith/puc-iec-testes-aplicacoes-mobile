@@ -21,6 +21,52 @@ beforeEach(() => {
 });
 
 describe('fetchPopularMovies', () => {
-  it.todo('1. busca os filmes populares da página pedida (/movie/popular)');   // 🧑‍💻 aluno
-  it.todo('2. devolve os filmes recebidos da API (data)');   // 🧑‍💻 aluno
+  it('1. busca os filmes populares da página pedida (/movie/popular)', async () => {   // 🧑‍💻 aluno
+    // Arrange
+    mockedGet.mockResolvedValue({
+      data: {
+        page: 2,
+        results: [],
+        total_pages: 1,
+        total_results: 0,
+      },
+    });
+
+    // Act
+    await fetchPopularMovies(2);
+
+    // Assert
+    expect(mockedGet).toHaveBeenCalledWith('/movie/popular', {
+      params: { page: 2 },
+    });
+  });
+
+  it('2. devolve os filmes recebidos da API (data)', async () => {   // 🧑‍💻 aluno
+    // Arrange
+    const responseData = {
+      page: 1,
+      results: [
+        {
+          id: 42,
+          title: 'Matrix',
+          overview: '',
+          poster_path: '/m.jpg',
+          release_date: '1999',
+          vote_average: 8.7,
+        },
+      ],
+      total_pages: 1,
+      total_results: 1,
+    };
+
+    mockedGet.mockResolvedValue({
+      data: responseData,
+    });
+
+    // Act
+    const result = await fetchPopularMovies(1);
+
+    // Assert
+    expect(result).toEqual(responseData);
+  });
 });
