@@ -19,6 +19,7 @@
 //   fireEvent.press(screen.getByTestId('movie-card-heart-1'))
 //   expect(screen.getByTestId('favorites-count')).toHaveTextContent('1')
 
+import '@testing-library/react-native/extend-expect';
 import { render, screen, fireEvent } from '@testing-library/react-native';
 import { useFavoritesStore } from '@/store/favoritesStore';
 import { renderApp, mockListaDeFilmes } from './_helpers';
