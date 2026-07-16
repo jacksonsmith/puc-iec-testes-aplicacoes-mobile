@@ -9,3 +9,34 @@ appId: com.puciec.cinefav
 #   - evalScript: ${output.termo = ['Matrix', 'Avatar', 'Interestelar'][Math.floor(Math.random() * 3)]}
 # TODO: abra a busca, digite ${output.termo} no search-input
 # TODO: assertVisible do ${output.termo}
+
+# Login
+- tapOn:
+    id: "login-email-input"
+- inputText: "aluno@puc.br"
+
+- tapOn:
+    id: "login-password-input"
+- inputText: "1234"
+
+- tapOn:
+    id: "login-submit-button"
+
+# Aguarda a tela principal
+- assertVisible:
+    id: "movielist-screen"
+
+# Sorteia um filme e salva em output.termo
+- evalScript: ${output.termo = ['Matrix', 'Avatar', 'Interestelar'][Math.floor(Math.random() * 3)]}
+
+# Abre a busca
+- tapOn:
+    id: "movielist-search-button"
+
+# Digita o termo sorteado
+- tapOn:
+    id: "search-input"
+- inputText: ${output.termo}
+
+# Valida que o filme pesquisado aparece
+- assertVisible: ${output.termo}

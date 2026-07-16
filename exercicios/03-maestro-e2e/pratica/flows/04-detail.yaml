@@ -9,3 +9,39 @@ appId: com.puciec.cinefav
 # TODO: favorite no detalhe — id "detail-favorite-button"
 # TODO: volte pra lista — id "detail-back-button"
 # TODO: assertVisible da lista de novo — id "movielist-screen"
+
+# Login
+- tapOn:
+    id: "login-email-input"
+- inputText: "aluno@puc.br"
+
+- tapOn:
+    id: "login-password-input"
+- inputText: "1234"
+
+- tapOn:
+    id: "login-submit-button"
+
+# Confirma que a lista foi carregada
+- assertVisible:
+    id: "movielist-screen"
+
+# Abre o detalhe do filme Matrix (id 603)
+- tapOn:
+    id: "movie-card-603"
+
+# Verifica que a tela de detalhes foi aberta
+- assertVisible:
+    id: "detail-screen"
+
+# Favorita o filme na tela de detalhes
+- tapOn:
+    id: "detail-favorite-button"
+
+# Volta para a lista
+- tapOn:
+    id: "detail-back-button"
+
+# Verifica que retornou para a lista de filmes
+- assertVisible:
+    id: "movielist-screen"
