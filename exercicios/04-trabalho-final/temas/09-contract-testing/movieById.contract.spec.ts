@@ -37,7 +37,7 @@ describe('Movie Details Contract', () => {
       const movie = await response.json() as any;
 
       // Shape completo de Movie — contrato com TMDB
-      expect(typeof movie.id).toBe('number');
+      expect(typeof movie.id).toBe('string'); #o tipo é number, porém mudamos para string para fazer com que falhe
       expect(typeof movie.title).toBe('string');
       expect(typeof movie.overview).toBe('string');
       expect(typeof movie.poster_path).toBe('string');
