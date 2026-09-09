@@ -1,9 +1,10 @@
 # Atividade 1 — Análise Rápida de Cobertura de Testes (15 pts)
 
 **Disciplina:** Testes de Aplicações Mobile
-**Entrega:** até **27/05/2026** (quarta-feira, antes da Aula 2)
+**Entrega:** ver Canvas
 **Modalidade:** individual
 **Tempo estimado:** 2-3 horas
+**Dificuldade:** ⭐⭐ Médio — análise de repositório open source + relatório escrito; sem setup técnico
 
 ---
 

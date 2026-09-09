@@ -1,9 +1,10 @@
 # Atividade 1 — Redigir Casos de Teste Funcionais (15 pts)
 
 **Disciplina:** Testes de Aplicações Mobile
-**Entrega:** até **27/05/2026** (quarta-feira, antes da Aula 2)
+**Entrega:** ver Canvas
 **Modalidade:** individual
 **Tempo estimado:** **~1 hora**
+**Dificuldade:** ⭐ Fácil — só redação de casos de teste; sem setup técnico
 
 ---
 

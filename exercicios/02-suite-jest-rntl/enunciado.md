@@ -1,7 +1,7 @@
 # Atividade 2 — Suíte Unitária + Integração sobre App RN (15 pts)
 
 **Disciplina:** Testes de Aplicações Mobile
-**Entrega:** até **21/06/2026**
+**Entrega:** ver Canvas
 **Modalidade:** individual
 **Tempo estimado:** **~2-3 horas**
 **Dificuldade:** ⭐⭐ Médio — Jest/Node (sem simulador); escrever testes sobre código existente

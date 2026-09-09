@@ -1,9 +1,9 @@
 # Trabalho Final em Grupo (60 pts)
 
 **Disciplina:** Testes de Aplicações Mobile
-**Entrega (relatório):** até **15/07/2026, 23:59**
+**Entrega (relatório):** ver Canvas
 **Modalidade:** grupo (3 a 4 alunos, auto-organizados em sala na Aula 1)
-**Apresentação:** **Aula de Reposição, 16/07/2026** (apresentação + demo ao vivo + Q&A)
+**Apresentação:** ver Canvas (apresentação + demo ao vivo + Q&A)
 **Template de relatório (obrigatório):** [`template-relatorio.md`](./template-relatorio.md) · também em [PDF](./template-relatorio.pdf) e [DOCX](./template-relatorio.docx)
 
 ---
@@ -146,8 +146,7 @@ São **2 partes**:
    separada de repo.** Se o tema gerou artefato técnico (repo, código, config), o **link do repo
    GitHub vai dentro do relatório** (seção Anexos → "Links e evidência adicional") — é ali que o
    prof confere.
-2. **Apresentação ao vivo + demo da prática funcionando** (10min + 5min Q&A) — **Aula de
-   Reposição, 16/07/2026**. Não é só slide: o grupo precisa **rodar o artefato de verdade** na
+2. **Apresentação ao vivo + demo da prática funcionando** (10min + 5min Q&A) — **data ver Canvas**. Não é só slide: o grupo precisa **rodar o artefato de verdade** na
    frente da turma (testes passando, flow rodando, ferramenta executando).
 
 **Ordem de apresentação:** os grupos combinam entre si a ordem (quem apresenta primeiro, segundo,
