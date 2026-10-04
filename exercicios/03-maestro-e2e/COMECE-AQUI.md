@@ -115,3 +115,4 @@ powershell -ExecutionPolicy Bypass -File maestro-local.ps1
 | Sem celular nem emulator roda | Fale com o professor — alternativa Maestro Cloud (free tier) |
 
 Dúvida? **Teams da turma** ou jackson.96@gmail.com.
+
