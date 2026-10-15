@@ -1,0 +1,537 @@
+{
+  "consumer": {
+    "name": "CineFav"
+  },
+  "interactions": [
+    {
+      "description": "a movie search for Batman",
+      "providerStates": [
+        {
+          "name": "movies matching Batman exist"
+        }
+      ],
+      "request": {
+        "matchingRules": {
+          "query": {
+            "query": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "method": "GET",
+        "path": "/search/movie",
+        "query": {
+          "query": [
+            "Batman"
+          ]
+        }
+      },
+      "response": {
+        "body": {
+          "page": 1,
+          "results": [
+            {
+              "id": 272,
+              "overview": "Após treinar com...",
+              "poster_path": "/path.jpg",
+              "release_date": "2005-06-15",
+              "title": "Batman Begins",
+              "vote_average": 7.7
+            }
+          ],
+          "total_pages": 10,
+          "total_results": 200
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$.page": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.results": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.results[*].id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.results[*].overview": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.results[*].poster_path": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.results[*].release_date": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.results[*].title": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.results[*].vote_average": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "decimal"
+                }
+              ]
+            },
+            "$.total_pages": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.total_results": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            }
+          },
+          "header": {},
+          "status": {}
+        },
+        "status": 200
+      }
+    },
+    {
+      "description": "a movie search with no results",
+      "providerStates": [
+        {
+          "name": "no movies match the query"
+        }
+      ],
+      "request": {
+        "matchingRules": {
+          "query": {
+            "query": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "method": "GET",
+        "path": "/search/movie",
+        "query": {
+          "query": [
+            "xyzabcqwerty123"
+          ]
+        }
+      },
+      "response": {
+        "body": {
+          "page": 1,
+          "results": [],
+          "total_pages": 0,
+          "total_results": 0
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$.page": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.total_pages": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.total_results": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            }
+          },
+          "header": {},
+          "status": {}
+        },
+        "status": 200
+      }
+    },
+    {
+      "description": "a request for a non-existent movie",
+      "providerStates": [
+        {
+          "name": "movie 999999 does not exist"
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/movie/999999"
+      },
+      "response": {
+        "body": {
+          "status_code": 34,
+          "status_message": "The resource you requested could not be found.",
+          "success": false
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$.status_code": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.status_message": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {},
+          "status": {}
+        },
+        "status": 404
+      }
+    },
+    {
+      "description": "a request for movie details of id 550",
+      "providerStates": [
+        {
+          "name": "movie 550 exists"
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/movie/550"
+      },
+      "response": {
+        "body": {
+          "id": 550,
+          "overview": "Um homem insatisfeito...",
+          "poster_path": "/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg",
+          "release_date": "1999-10-15",
+          "title": "Fight Club",
+          "vote_average": 8.4
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$.id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.overview": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.poster_path": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.release_date": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.title": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.vote_average": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "decimal"
+                }
+              ]
+            }
+          },
+          "header": {},
+          "status": {}
+        },
+        "status": 200
+      }
+    },
+    {
+      "description": "a request for popular movies page 1",
+      "providerStates": [
+        {
+          "name": "popular movies exist"
+        }
+      ],
+      "request": {
+        "matchingRules": {
+          "query": {
+            "page": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          }
+        },
+        "method": "GET",
+        "path": "/movie/popular",
+        "query": {
+          "page": [
+            "1"
+          ]
+        }
+      },
+      "response": {
+        "body": {
+          "page": 1,
+          "results": [
+            {
+              "id": 550,
+              "overview": "Um homem insatisfeito...",
+              "poster_path": "/path.jpg",
+              "release_date": "1999-10-15",
+              "title": "Fight Club",
+              "vote_average": 8.4
+            }
+          ],
+          "total_pages": 500,
+          "total_results": 10000
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$.page": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.results": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type",
+                  "min": 1
+                }
+              ]
+            },
+            "$.results[*].id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.results[*].overview": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.results[*].poster_path": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.results[*].release_date": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.results[*].title": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.results[*].vote_average": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "decimal"
+                }
+              ]
+            },
+            "$.total_pages": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.total_results": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            }
+          },
+          "header": {},
+          "status": {}
+        },
+        "status": 200
+      }
+    },
+    {
+      "description": "a request for popular movies with invalid token",
+      "providerStates": [
+        {
+          "name": "token is invalid"
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/movie/popular"
+      },
+      "response": {
+        "body": {
+          "status_code": 7,
+          "status_message": "Invalid API key: You must be granted a valid key.",
+          "success": false
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "body": {
+            "$.status_code": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "integer"
+                }
+              ]
+            },
+            "$.status_message": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {},
+          "status": {}
+        },
+        "status": 401
+      }
+    }
+  ],
+  "metadata": {
+    "pact-js": {
+      "version": "13.2.0"
+    },
+    "pactRust": {
+      "ffi": "0.4.22",
+      "models": "1.2.3"
+    },
+    "pactSpecification": {
+      "version": "3.0.0"
+    }
+  },
+  "provider": {
+    "name": "TMDB"
+  }
+}
