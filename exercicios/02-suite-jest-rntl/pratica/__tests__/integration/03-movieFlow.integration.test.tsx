@@ -36,16 +36,55 @@ describe('Fluxo de integração — lista + favoritos (ENTREGA Parte B)', () => 
   // Em aula, compare os dois — getByRole é a 1ª escolha (slide "RNTL — queries por prioridade").
 
   // Dica: render(renderApp()); expect(await screen.findByText('Matrix')).toBeTruthy();
-  it.todo('1.a a lista aparece — achando pelo TEXTO (findByText)');   // 🧑‍🏫 em aula
+  it('1.a a lista aparece — achando pelo TEXTO (findByText)', async () => {
+    render(renderApp());
+    
+    // Espera o texto do filme mockado aparecer na tela
+    const filme = await screen.findByText('Matrix');
+    expect(filme).toBeTruthy();
+  });
 
-  // Dica: o ♥ de favoritar tem accessibilityRole="button" e accessibilityLabel="Adicionar favorito".
-  //   const botoes = await screen.findAllByRole('button', { name: 'Adicionar favorito' });
-  //   expect(botoes).toHaveLength(2);   // 2 filmes → 2 botões = a lista renderizou
-  it.todo('1.b a lista aparece — achando pelo ROLE (getByRole, prioridade)');   // 🧑‍🏫 em aula
+  it('1.b a lista aparece — achando pelo ROLE (getByRole, prioridade)', async () => {
+    render(renderApp());
 
-  // após carregar, contador começa em '0'; press no heart-1 → '1'.
-  it.todo('2. favoritar um filme soma no contador do topo (♥ 1)');   // 🧑‍💻 aluno
+    // Usamos findAllByRole (async) porque os botões dependem da carga da API.
+    // Como o mock traz 2 filmes, precisamos encontrar exatamente 2 botões de favoritar.
+    const botoes = await screen.findAllByRole('button', { name: 'Adicionar favorito' });
+    expect(botoes).toHaveLength(2);
+  });
 
-  // favoritar e depois desfavoritar o mesmo card → contador volta a '0'.
-  it.todo('3. desfavoritar volta o contador a 0');   // 🧑‍💻 aluno
+  it('2. favoritar um filme soma no contador do topo (♥ 1)', async () => {
+    render(renderApp());
+
+    // Primeiro, esperamos a lista carregar aguardando um filme conhecido
+    await screen.findByText('Matrix');
+
+    // O contador deve começar zerado (ou exibir apenas o estado inicial "♥ 0" ou "0")
+    // O professor indicou checar se muda para '1', vamos garantir o fluxo:
+    const botaoFavoritar = screen.getByTestId('movie-card-heart-1');
+    
+    // Simula o clique no coração do filme com id 1
+    fireEvent.press(botaoFavoritar);
+
+    // Verifica se o componente com o testID do contador mudou o texto para '1'
+    expect(screen.getByTestId('favorites-count')).toHaveTextContent('1');
+  });
+
+  it('3. desfavoritar volta o contador a 0', async () => {
+    render(renderApp());
+
+    // Aguarda o carregamento da lista
+    await screen.findByText('Matrix');
+
+    const botaoFavoritar = screen.getByTestId('movie-card-heart-1');
+    const contador = screen.getByTestId('favorites-count');
+
+    // 1º Clique: Favorita o filme -> Contador vai para 1
+    fireEvent.press(botaoFavoritar);
+    expect(contador).toHaveTextContent('1');
+
+    // 2º Clique: Desfavorita o mesmo filme -> Contador volta para 0
+    fireEvent.press(botaoFavoritar);
+    expect(contador).toHaveTextContent('0');
+  });
 });

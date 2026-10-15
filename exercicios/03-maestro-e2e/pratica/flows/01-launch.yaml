@@ -1,18 +1,19 @@
-# Flow 1 — MODELO RESOLVIDO ✅ (não precisa mexer; use como referência pros outros)
+# Flow 1 — MODELO RESOLVIDO
 #
 # Abre o app, faz login e confirma que a lista de filmes apareceu.
-# O app abre na tela de Login — todo flow precisa logar antes de chegar na lista.
+
 appId: com.puciec.cinefav
+
 ---
 - launchApp
-- tapOn:
-    id: "login-email-input"
-- inputText: "aluno@puc.br"
-- tapOn:
-    id: "login-password-input"
-- inputText: "1234"
-- tapOn:
-    id: "login-submit-button"
+
+- runFlow:
+    when:
+      visible:
+        id: "login-screen"
+    file: "_fragments/login.yaml"
+
 - assertVisible:
     id: "movielist-screen"
+
 - assertVisible: "Matrix"
