@@ -3,9 +3,29 @@
 appId: com.puciec.cinefav
 ---
 - launchApp
-# TODO: faça login
-# TODO: toque no card do filme "Matrix" — id "movie-card-603"
-# TODO: assertVisible da tela de detalhe — id "detail-screen"
-# TODO: favorite no detalhe — id "detail-favorite-button"
-# TODO: volte pra lista — id "detail-back-button"
-# TODO: assertVisible da lista de novo — id "movielist-screen"
+# Login (copiado do flow 01)
+- tapOn:
+    id: "login-email-input"
+- inputText: "aluno@puc.br"
+- tapOn:
+    id: "login-password-input"
+- inputText: "1234"
+- tapOn:
+    id: "login-submit-button"
+- assertVisible:
+    id: "movielist-screen"
+# Toca no card do filme "Matrix"
+- tapOn:
+    id: "movie-card-603"
+# Confirma que chegou na tela de detalhe
+- assertVisible:
+    id: "detail-screen"
+# Favorita direto no detalhe
+- tapOn:
+    id: "detail-favorite-button"
+# Volta pra lista
+- tapOn:
+    id: "detail-back-button"
+# Confirma que voltou pra tela de lista
+- assertVisible:
+    id: "movielist-screen"

@@ -4,8 +4,25 @@
 appId: com.puciec.cinefav
 ---
 - launchApp
-# TODO: faça login
-# TODO: use evalScript pra sortear um título e gravar em output.termo, ex:
-#   - evalScript: ${output.termo = ['Matrix', 'Avatar', 'Interestelar'][Math.floor(Math.random() * 3)]}
-# TODO: abra a busca, digite ${output.termo} no search-input
-# TODO: assertVisible do ${output.termo}
+# Login (copiado do flow 01)
+- tapOn:
+    id: "login-email-input"
+- inputText: "aluno@puc.br"
+- tapOn:
+    id: "login-password-input"
+- inputText: "1234"
+- tapOn:
+    id: "login-submit-button"
+- assertVisible:
+    id: "movielist-screen"
+# Sorteia um título e grava em output.termo
+- evalScript: ${output.termo = ['Matrix', 'Avatar', 'Interestelar'][Math.floor(Math.random() * 3)]}
+# Abre a busca
+- tapOn:
+    id: "movielist-search-button"
+# Digita o termo sorteado
+- tapOn:
+    id: "search-input"
+- inputText: "${output.termo}"
+# Confirma que o filme sorteado aparece no resultado
+- assertVisible: "${output.termo}"
