@@ -25,5 +25,17 @@ beforeEach(() => {
 });
 
 describe('Navegação (integração)', () => {
-  it.todo('1. tocar no filme abre a tela de detalhe');   // 🧑‍🏫 em aula (exemplo de navegação)
+  it('1. tocar no filme abre a tela de detalhe', async () => {   // 🧑‍🏫 em aula
+    // Arrange
+    render(renderApp());
+
+    // Aguarda a lista de filmes carregar
+    const filme = await screen.findByText('Matrix');
+
+    // Act
+    fireEvent.press(filme);
+
+    // Assert
+    expect(await screen.findByText('Detalhes do filme')).toBeTruthy();
+  });
 });
