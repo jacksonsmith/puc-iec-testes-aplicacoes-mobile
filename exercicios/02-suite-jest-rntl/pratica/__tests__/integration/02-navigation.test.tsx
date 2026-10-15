@@ -25,5 +25,19 @@ beforeEach(() => {
 });
 
 describe('Navegação (integração)', () => {
-  it.todo('1. tocar no filme abre a tela de detalhe');   // 🧑‍🏫 em aula (exemplo de navegação)
+  it('1. tocar no filme abre a tela de detalhe', async () => {   // 🧑‍🏫 em aula (exemplo de navegação)
+    render(renderApp());
+    
+    // espera a lista carregar e acha o texto 'Matrix'
+    const matrixTitle = await screen.findByText('Matrix');
+    expect(matrixTitle).toBeTruthy();
+    
+    // toca no card (ou no texto)
+    fireEvent.press(matrixTitle);
+    
+    // verifica que a tela de detalhe foi aberta procurando por um elemento único dela
+    // o DetailScreen mostra "Detalhes do filme" no topo
+    const detailTitle = await screen.findByText('Detalhes do filme');
+    expect(detailTitle).toBeTruthy();
+  }, 10000);  // 10s timeout para navegação
 });
