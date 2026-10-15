@@ -5,14 +5,11 @@
 appId: com.puciec.cinefav
 ---
 - launchApp
-- tapOn:
-    id: "login-email-input"
-- inputText: "aluno@puc.br"
-- tapOn:
-    id: "login-password-input"
-- inputText: "1234"
-- tapOn:
-    id: "login-submit-button"
+- runFlow:
+    when:
+       visible:
+         id: "login-screen"
+    file: _fragments/login.yaml
+
 - assertVisible:
     id: "movielist-screen"
-- assertVisible: "Matrix"

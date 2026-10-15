@@ -1,0 +1,15 @@
+appId: com.puciec.cinefav
+env:
+  USER: "aluno@puc.br"
+  PASS: "1234" 
+---
+- tapOn:
+    id: "login-email-input"
+- inputText: ${USER}
+- tapOn:
+    id: "login-password-input"
+- inputText: ${PASS}
+- tapOn:
+    id: "login-submit-button"
+- assertVisible:
+    id: "movielist-screen"

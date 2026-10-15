@@ -1,0 +1,7 @@
+appId: com.puciec.cinefav
+---
+- tapOn:
+    id: "movielist-search-button"
+
+- inputText: ${SEARCH_TERM}
+- assertVisible: ${SEARCH_TERM}
