@@ -25,5 +25,18 @@ beforeEach(() => {
 });
 
 describe('Navegação (integração)', () => {
-  it.todo('1. tocar no filme abre a tela de detalhe');   // 🧑‍🏫 em aula (exemplo de navegação)
+  it('1. tocar no filme abre a tela de detalhe', async () => {
+    //1- arrange
+    render(renderApp());
+
+    //2- act
+    //tocar num filme
+    const cardMichael = await screen.findByText('Michael');
+    fireEvent.press(cardMichael);
+
+    //3- assert
+    //chegou na tela detalhes
+    expect(await screen.findByText('Detalhes do filme')).toBeTruthy();
+
+  });
 });

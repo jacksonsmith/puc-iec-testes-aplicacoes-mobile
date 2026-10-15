@@ -36,16 +36,62 @@ describe('Fluxo de integração — lista + favoritos (ENTREGA Parte B)', () => 
   // Em aula, compare os dois — getByRole é a 1ª escolha (slide "RNTL — queries por prioridade").
 
   // Dica: render(renderApp()); expect(await screen.findByText('Matrix')).toBeTruthy();
-  it.todo('1.a a lista aparece — achando pelo TEXTO (findByText)');   // 🧑‍🏫 em aula
+  it('1.a a lista aparece — achando pelo TEXTO (findByText)', async () => {  // 🧑‍🏫 em aula
+    //arrange
+
+    //setup
+    render(renderApp());
+
+    //assert    
+    expect(await screen.findByText('Inception')).toBeTruthy();
+  });  
 
   // Dica: o ♥ de favoritar tem accessibilityRole="button" e accessibilityLabel="Adicionar favorito".
   //   const botoes = await screen.findAllByRole('button', { name: 'Adicionar favorito' });
   //   expect(botoes).toHaveLength(2);   // 2 filmes → 2 botões = a lista renderizou
-  it.todo('1.b a lista aparece — achando pelo ROLE (getByRole, prioridade)');   // 🧑‍🏫 em aula
+  it('1.b a lista aparece — achando pelo ROLE (getByRole, prioridade)', async  () => {  // 🧑‍🏫 em aula
+     //arrange
+    render(renderApp());
+
+    //assert
+    expect(await screen.findByTestId('movie-card-heart-1')).toBeTruthy();
+  });   
 
   // após carregar, contador começa em '0'; press no heart-1 → '1'.
-  it.todo('2. favoritar um filme soma no contador do topo (♥ 1)');   // 🧑‍💻 aluno
+  it('2. favoritar um filme soma no contador do topo (♥ 1)', async () => {  // 🧑‍💻 aluno
 
+    render(renderApp());
+
+    // Aguarda a lista carregar
+    await screen.findByText('Inception');
+
+    // Estado inicial
+    expect(screen.getByTestId('favorites-count').props.children).toBe(0);
+
+    // Favorita o filme de id 1
+    fireEvent.press(screen.getByTestId('movie-card-heart-1'));
+
+    // Contador atualizado
+    expect(screen.getByTestId('favorites-count').props.children).toBe(1);
+  });   
   // favoritar e depois desfavoritar o mesmo card → contador volta a '0'.
-  it.todo('3. desfavoritar volta o contador a 0');   // 🧑‍💻 aluno
+  it('3. desfavoritar volta o contador a 0', async () => {   // 🧑‍💻 aluno
+  render(renderApp());
+
+  // Aguarda a lista carregar
+  await screen.findByText('Inception');
+
+  const heartButton = screen.getByTestId('movie-card-heart-1');
+
+  // Favorita
+  fireEvent.press(heartButton);
+  expect(screen.getByTestId('favorites-count').props.children).toBe(1);
+
+  // Desfavorita
+  fireEvent.press(heartButton);
+  expect(screen.getByTestId('favorites-count').props.children).toBe(0);
+ }); 
 });
+
+
+ 
