@@ -26,14 +26,14 @@ describe('counterStore', () => {
     // Act
     s().increment();
     // Assert — complete:
-    expect(s().count).toBe(/* TODO */);
+    expect(s().count).toBe(1);
   });
 
   it('2. decrementar subtrai 1 do contador (decrement)', () => {   // 🧑‍💻 aluno
     // Act
     s().decrement();
     // Assert — complete:
-    expect(s().count).toBe(/* TODO */);
+    expect(s().count).toBe(-1);
   });
 
   it('3. resetar volta o contador a 0 (reset)', () => {   // 🧑‍💻 aluno
@@ -43,6 +43,6 @@ describe('counterStore', () => {
     // Act
     s().reset();
     // Assert — complete:
-    expect(s().count).toBe(/* TODO */);
+    expect(s().count).toBe(0);
   });
 });
