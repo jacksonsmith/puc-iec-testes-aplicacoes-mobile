@@ -19,9 +19,29 @@ import { useFavoritesStore } from '@/store/favoritesStore';
 beforeEach(() => useFavoritesStore.setState({ ids: [] }));
 
 describe('useFavorites (renderHook)', () => {
-  it.todo('1. começa sem nenhum favorito (count 0)');   // 🧑‍🏫 em aula
+  it('1. começa sem nenhum favorito (count 0)', () => {
+    const { result } = renderHook(() => useFavoritesStore());
+    expect(result.current.ids).toEqual([]);
+  });
+  it('2. favoritar e desfavoritar volta a zero (toggle)', () => {
+    const { result } = renderHook(() => useFavoritesStore());
 
-  it.todo('2. favoritar e desfavoritar volta a zero (toggle)');   // 🧑‍💻 aluno
+    act(() => {
+      result.current.add(10);
+    });
+    expect(result.current.ids).toEqual([10]);
+    expect(result.current.isFavorite(10)).toBe(true);
+  });
+  it('3. sei se está favoritado depois de favoritar (isFavorite)', () => {
+    const { result } = renderHook(() => useFavoritesStore());
 
-  it.todo('3. sei se está favoritado depois de favoritar (isFavorite)');   // 🧑‍💻 aluno
+    act(() => {
+      result.current.add(10);
+      result.current.remove(10);
+    });
+
+    expect(result.current.ids).toEqual([]);
+    expect(result.current.isFavorite(10)).toBe(false);
+  });
+
 });
