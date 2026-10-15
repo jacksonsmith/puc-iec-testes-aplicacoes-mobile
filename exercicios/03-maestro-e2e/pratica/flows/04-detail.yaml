@@ -3,6 +3,21 @@
 appId: com.puciec.cinefav
 ---
 - launchApp
+- runFlow:
+    when:
+      visible:
+        id: "login-screen"
+    file: _fragments/login.yaml
+- tapOn:
+    id: "movie-card-603"
+- assertVisible:
+    id: "detail-screen"
+- tapOn:
+    id: "detail-favorite-button"
+- tapOn:
+    id: "detail-back-button"
+- assertVisible:
+    id: "movielist-screen"
 # TODO: faça login
 # TODO: toque no card do filme "Matrix" — id "movie-card-603"
 # TODO: assertVisible da tela de detalhe — id "detail-screen"

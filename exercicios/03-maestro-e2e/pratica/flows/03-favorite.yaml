@@ -3,6 +3,19 @@
 appId: com.puciec.cinefav
 ---
 - launchApp
+- runFlow:
+    when:
+      visible:
+        id: "login-screen"
+    file: _fragments/login.yaml
+- tapOn:
+    id: "movie-card-heart-603"
+- tapOn:
+    id: "movielist-favorites-button"
+- assertVisible:
+    id: "favorites-screen"
+- assertVisible:
+    id: "favorites-item-603"
 # TODO: faça login
 # TODO: favorite o filme "Matrix" tocando no coração do card — id "movie-card-heart-603"
 # TODO: abra os Favoritos pelo botão do header — id "movielist-favorites-button"
