@@ -6,11 +6,6 @@
 // Renderiza o app inteiro (AppNavigator) e verifica que tocar num card leva pra
 // tela de detalhe. O setup (renderApp + mock + fixture) está em ./_helpers — leia
 // pra entender; aqui você foca no comportamento.
-//
-// Complete o it.todo:
-//   render(renderApp());
-//   fireEvent.press(await screen.findByText('Matrix'));   // findBy = espera async
-//   expect(await screen.findByText('Detalhes do filme')).toBeTruthy();
 
 import { render, screen, fireEvent } from '@testing-library/react-native';
 import { useFavoritesStore } from '@/store/favoritesStore';
@@ -25,5 +20,13 @@ beforeEach(() => {
 });
 
 describe('Navegação (integração)', () => {
-  it.todo('1. tocar no filme abre a tela de detalhe');   // 🧑‍🏫 em aula (exemplo de navegação)
+  it('1. tocar no filme abre a tela de detalhe', async () => {   // 🧑‍🏫 em aula (exemplo de navegação)
+    render(renderApp());
+
+    const matrixCard = await screen.findByText('Matrix');
+    
+    fireEvent.press(await screen.findByText('Matrix'));
+
+    expect(await screen.findByText('Detalhes do filme')).toBeTruthy();
+  });
 });
