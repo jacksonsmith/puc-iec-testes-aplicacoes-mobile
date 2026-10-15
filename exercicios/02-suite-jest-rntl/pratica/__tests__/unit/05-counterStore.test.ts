@@ -11,38 +11,27 @@
 //   useCounterStore.getState().count   // → lê o valor atual
 
 import { useCounterStore } from '@/store/counterStore';
+import { counterStoreRobot } from './robots/storeRobots';
 
-beforeEach(() => {
-  useCounterStore.setState({ count: 0 });
-});
-
-// Atalho (count começa em 0 por causa do beforeEach):
-const s = () => useCounterStore.getState();
+beforeEach(() => counterStoreRobot.resetar());
 
 // Os 3 são FÁCEIS: a ação já está escrita — complete só o expect (começam vermelhos → verde).
 
 describe('counterStore', () => {
   it('1. incrementar soma 1 ao contador (increment)', () => {   // 🧑‍💻 aluno
-    // Act
-    s().increment();
-    // Assert — complete:
-    expect(s().count).toBe(/* TODO */);
+    counterStoreRobot.incrementar();
+    counterStoreRobot.verificarCount(1);
   });
 
   it('2. decrementar subtrai 1 do contador (decrement)', () => {   // 🧑‍💻 aluno
-    // Act
-    s().decrement();
-    // Assert — complete:
-    expect(s().count).toBe(/* TODO */);
+    counterStoreRobot.decrementar();
+    counterStoreRobot.verificarCount(-1);
   });
 
   it('3. resetar volta o contador a 0 (reset)', () => {   // 🧑‍💻 aluno
-    // Arrange
-    s().increment();
-    s().increment();
-    // Act
-    s().reset();
-    // Assert — complete:
-    expect(s().count).toBe(/* TODO */);
+    counterStoreRobot.incrementar();
+    counterStoreRobot.incrementar();
+    counterStoreRobot.zerar();
+    counterStoreRobot.verificarCount(0);
   });
 });

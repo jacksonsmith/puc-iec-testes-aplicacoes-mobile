@@ -15,18 +15,7 @@
 //
 // Queries RNTL: screen.getByText(...) · fireEvent.press(...) · expect(...).toBeTruthy()
 
-import { render, screen, fireEvent } from '@testing-library/react-native';
-import MovieCard from '@/components/MovieCard';
-
-const mockNavigate = jest.fn();
-jest.mock('@react-navigation/native', () => ({
-  useNavigation: () => ({ navigate: mockNavigate }),
-}));
-
-const movie = {
-  id: 42, title: 'Matrix', overview: '',
-  poster_path: '/m.jpg', release_date: '1999', vote_average: 8.7,
-};
+import { movieCardRobot, mockNavigate } from './robots/movieCardRobot';
 
 beforeEach(() => mockNavigate.mockClear());
 
@@ -35,13 +24,19 @@ beforeEach(() => mockNavigate.mockClear());
 //   1) render(<MovieCard movie={movie} />)  2) consulta screen.getBy...  3) expect(...)
 
 describe('MovieCard', () => {
-  // Dica: depois do render → expect(screen.getByText('Matrix')).toBeTruthy();
-  it.todo('1. o card mostra o título do filme');   // 🧑‍🏫 em aula
+  it('1. o card mostra o título do filme', () => {
+    movieCardRobot.render();
+    movieCardRobot.verificarTitulo();
+  });   // 🧑‍🏫 em aula
 
-  // Dica: a nota aparece como '⭐ 8.7' (vote_average.toFixed(1)) → screen.getByText('⭐ 8.7').
-  it.todo('2. o card mostra a nota (⭐ 8.7)');   // 🧑‍💻 aluno
+  it('2. o card mostra a nota (⭐ 8.7)', () => {
+    movieCardRobot.render();
+    movieCardRobot.verificarNota();
+  });   // 🧑‍💻 aluno
 
-  // Dica: fireEvent.press(screen.getByText('Matrix'));
-  //   expect(mockNavigate).toHaveBeenCalledWith('Detail', { id: 42, title: 'Matrix' });
-  it.todo('3. tocar no card abre a tela de detalhe (navigate)');   // 🧑‍💻 aluno
+  it('3. tocar no card abre a tela de detalhe (navigate)', () => {
+    movieCardRobot.render();
+    movieCardRobot.tocarCard();
+    movieCardRobot.verificarNavegacao();
+  });   // 🧑‍💻 aluno
 });

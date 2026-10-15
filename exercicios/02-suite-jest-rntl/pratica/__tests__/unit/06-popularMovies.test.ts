@@ -11,16 +11,27 @@
 //   mockedGet.mockResolvedValue({ data: { page: 1, results: [], total_pages: 1, total_results: 0 } });
 
 import { fetchPopularMovies } from '@/queries/movies/get-popular-movies';
-import { api } from '@/services/api';
+import { popularMoviesRobot } from './robots/popularMoviesRobot';
 
 jest.mock('@/services/api');
-const mockedGet = api.get as jest.Mock;
 
-beforeEach(() => {
-  mockedGet.mockReset();
-});
+beforeEach(() => popularMoviesRobot.resetarMock());
 
 describe('fetchPopularMovies', () => {
-  it.todo('1. busca os filmes populares da página pedida (/movie/popular)');   // 🧑‍💻 aluno
-  it.todo('2. devolve os filmes recebidos da API (data)');   // 🧑‍💻 aluno
+  it('1. busca os filmes populares da página pedida (/movie/popular)', async () => {
+    popularMoviesRobot.mockarResposta();
+
+    await popularMoviesRobot.buscarPagina(2);
+
+    popularMoviesRobot.verificarChamada(2);
+  });   // 🧑‍💻 aluno
+
+  it('2. devolve os filmes recebidos da API (data)', async () => {
+    const resultados = [{ id: 1, title: 'Matrix' }];
+    popularMoviesRobot.mockarResposta(resultados);
+
+    const resposta = await popularMoviesRobot.buscarPagina(1);
+
+    expect(resposta.results).toEqual(resultados);
+  });   // 🧑‍💻 aluno
 });
